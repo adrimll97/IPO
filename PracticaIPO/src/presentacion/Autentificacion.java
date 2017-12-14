@@ -7,6 +7,8 @@ import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -26,6 +28,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.Box;
+import java.awt.Dimension;
 
 public class Autentificacion {
 
@@ -72,12 +78,15 @@ public class Autentificacion {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.addWindowListener(new FrmLoginWindowListener());
 		frmLogin.setResizable(false);
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 450, 300);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		splitPane = new JSplitPane();
+		splitPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		splitPane.setDividerSize(2);
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		frmLogin.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
@@ -174,17 +183,26 @@ public class Autentificacion {
 		lblRegistro.setForeground(Color.BLUE);
 		panel_1.add(lblRegistro);
 	}
-
+	
+	public JFrame getFrmLogin() {
+		return frmLogin;
+	}
+	
 	private class BtnIniciarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
 	private class LblRegistroMouseListener extends MouseAdapter {
-		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			Registro otraVentana = new Registro();
 			otraVentana.setVisible(true);
 			frmLogin.dispose();
+		}
+	}
+	private class FrmLoginWindowListener extends WindowAdapter {
+		public void windowClosing(WindowEvent arg0) {
+			JOptionPane.showMessageDialog(frmLogin, "Gracias por utilizarnuestra aplicación", "Cerrar la aplicación",
+					JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
