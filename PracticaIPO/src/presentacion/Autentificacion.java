@@ -22,6 +22,10 @@ import java.awt.Color;
 import javax.swing.ButtonGroup;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Autentificacion {
 
@@ -165,6 +169,7 @@ public class Autentificacion {
 		panel_1.add(lblRegistrese);
 		
 		lblRegistro = new JLabel("Registro");
+		lblRegistro.addMouseListener(new LblRegistroMouseListener());
 		lblRegistro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblRegistro.setForeground(Color.BLUE);
 		panel_1.add(lblRegistro);
@@ -174,4 +179,13 @@ public class Autentificacion {
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
+	private class LblRegistroMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			Registro otraVentana = new Registro();
+			otraVentana.setVisible(true);
+			frmLogin.dispose();
+		}
+	}
+
 }
