@@ -3,36 +3,42 @@ package presentacion;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import javax.swing.JLabel;
+import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 import java.awt.Color;
+import javax.swing.ButtonGroup;
 import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JSplitPane;
+import java.awt.Cursor;
 
 public class Autentificacion {
 
 	private JFrame frmLogin;
+	private JSplitPane splitPane;
 	private JPanel panel;
 	private JLabel lblIdentificacin;
 	private JLabel lblContrasea;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JButton btnIniciarSesion;
+	private JButton btnIniciar;
 	private JRadioButton rdbtnEspaol;
-	private JRadioButton rdbtnIngls;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JLabel lblRegstreseSiAn;
+	private JRadioButton rdbtnIngles;
+	private JPanel panel_1;
+	private JLabel lblRegistrese;
 	private JLabel lblRegistro;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -62,100 +68,109 @@ public class Autentificacion {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
-		frmLogin.setResizable(false);
 		frmLogin.setTitle("Login");
-		frmLogin.setBounds(100, 100, 697, 400);
+		frmLogin.setBounds(100, 100, 450, 300);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		splitPane = new JSplitPane();
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		frmLogin.getContentPane().add(splitPane, BorderLayout.CENTER);
+		
 		panel = new JPanel();
-		frmLogin.getContentPane().add(panel, BorderLayout.CENTER);
+		splitPane.setLeftComponent(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{60, 0, 203, 0, 126, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{75, 75, 86, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 28, 45, 45, 81, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		rdbtnEspaol = new JRadioButton("Español");
+		rdbtnEspaol.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buttonGroup.add(rdbtnEspaol);
 		rdbtnEspaol.setSelected(true);
 		rdbtnEspaol.setForeground(Color.BLUE);
-		buttonGroup.add(rdbtnEspaol);
 		GridBagConstraints gbc_rdbtnEspaol = new GridBagConstraints();
-		gbc_rdbtnEspaol.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rdbtnEspaol.anchor = GridBagConstraints.EAST;
 		gbc_rdbtnEspaol.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnEspaol.gridx = 5;
+		gbc_rdbtnEspaol.gridx = 3;
 		gbc_rdbtnEspaol.gridy = 0;
 		panel.add(rdbtnEspaol, gbc_rdbtnEspaol);
 		
-		rdbtnIngls = new JRadioButton("Inglés");
-		rdbtnIngls.setForeground(Color.BLUE);
-		buttonGroup.add(rdbtnIngls);
-		GridBagConstraints gbc_rdbtnIngls = new GridBagConstraints();
-		gbc_rdbtnIngls.fill = GridBagConstraints.HORIZONTAL;
-		gbc_rdbtnIngls.insets = new Insets(0, 0, 5, 0);
-		gbc_rdbtnIngls.gridx = 6;
-		gbc_rdbtnIngls.gridy = 0;
-		panel.add(rdbtnIngls, gbc_rdbtnIngls);
+		rdbtnIngles = new JRadioButton("Ingles");
+		rdbtnIngles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buttonGroup.add(rdbtnIngles);
+		rdbtnIngles.setForeground(Color.BLUE);
+		GridBagConstraints gbc_rdbtnIngles = new GridBagConstraints();
+		gbc_rdbtnIngles.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnIngles.insets = new Insets(0, 0, 5, 0);
+		gbc_rdbtnIngles.gridx = 4;
+		gbc_rdbtnIngles.gridy = 0;
+		panel.add(rdbtnIngles, gbc_rdbtnIngles);
 		
-		lblIdentificacin = new JLabel("Identificación: ");
+		lblIdentificacin = new JLabel("Identificación:");
 		GridBagConstraints gbc_lblIdentificacin = new GridBagConstraints();
 		gbc_lblIdentificacin.anchor = GridBagConstraints.EAST;
 		gbc_lblIdentificacin.insets = new Insets(0, 0, 5, 5);
 		gbc_lblIdentificacin.gridx = 1;
-		gbc_lblIdentificacin.gridy = 1;
+		gbc_lblIdentificacin.gridy = 2;
 		panel.add(lblIdentificacin, gbc_lblIdentificacin);
 		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 3;
+		gbc_textField.gridwidth = 2;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 1;
+		gbc_textField.gridy = 2;
 		panel.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		lblContrasea = new JLabel("Contraseña: ");
+		lblContrasea = new JLabel("Contraseña:");
 		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
 		gbc_lblContrasea.anchor = GridBagConstraints.EAST;
 		gbc_lblContrasea.insets = new Insets(0, 0, 5, 5);
 		gbc_lblContrasea.gridx = 1;
-		gbc_lblContrasea.gridy = 2;
+		gbc_lblContrasea.gridy = 3;
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
 		textField_1 = new JTextField();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 3;
+		gbc_textField_1.gridwidth = 2;
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 2;
+		gbc_textField_1.gridy = 3;
 		panel.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
-		btnIniciarSesion = new JButton("Iniciar sesión");
-		GridBagConstraints gbc_btnIniciarSesion = new GridBagConstraints();
-		gbc_btnIniciarSesion.anchor = GridBagConstraints.EAST;
-		gbc_btnIniciarSesion.insets = new Insets(0, 0, 5, 5);
-		gbc_btnIniciarSesion.gridx = 4;
-		gbc_btnIniciarSesion.gridy = 3;
-		panel.add(btnIniciarSesion, gbc_btnIniciarSesion);
+		btnIniciar = new JButton("Iniciar sesión");
+		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnIniciar.addActionListener(new BtnIniciarActionListener());
+		GridBagConstraints gbc_btnIniciar = new GridBagConstraints();
+		gbc_btnIniciar.anchor = GridBagConstraints.NORTH;
+		gbc_btnIniciar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnIniciar.gridx = 3;
+		gbc_btnIniciar.gridy = 4;
+		panel.add(btnIniciar, gbc_btnIniciar);
 		
-		lblRegstreseSiAn = new JLabel("Regístrese si aún no lo ha hecho: ");
-		GridBagConstraints gbc_lblRegstreseSiAn = new GridBagConstraints();
-		gbc_lblRegstreseSiAn.anchor = GridBagConstraints.EAST;
-		gbc_lblRegstreseSiAn.gridwidth = 2;
-		gbc_lblRegstreseSiAn.insets = new Insets(0, 0, 0, 5);
-		gbc_lblRegstreseSiAn.gridx = 1;
-		gbc_lblRegstreseSiAn.gridy = 5;
-		panel.add(lblRegstreseSiAn, gbc_lblRegstreseSiAn);
+		panel_1 = new JPanel();
+		splitPane.setRightComponent(panel_1);
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblRegistrese = new JLabel("Regístrese si aún no lo ha hecho:");
+		lblRegistrese.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblRegistrese.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(lblRegistrese);
 		
 		lblRegistro = new JLabel("Registro");
+		lblRegistro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblRegistro.setForeground(Color.BLUE);
-		GridBagConstraints gbc_lblRegistro = new GridBagConstraints();
-		gbc_lblRegistro.insets = new Insets(0, 0, 0, 5);
-		gbc_lblRegistro.gridx = 3;
-		gbc_lblRegistro.gridy = 5;
-		panel.add(lblRegistro, gbc_lblRegistro);
+		panel_1.add(lblRegistro);
+	}
+
+	private class BtnIniciarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }
