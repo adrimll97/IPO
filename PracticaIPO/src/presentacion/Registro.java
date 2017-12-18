@@ -45,13 +45,13 @@ public class Registro extends JFrame {
 	private JLabel lblConfirmarEmail;
 	private JLabel lblContrasea;
 	private JLabel lblConfirmarContrasea;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField txtIdentificacion;
+	private JTextField txtNombre;
+	private JTextField txtApellidos;
+	private JTextField txtTelefono;
+	private JTextField txtConfirmarEmail;
+	private JTextField txtContrasena;
+	private JTextField txtConfirmarContrasena;
 	private JButton btnCancelar;
 	private JButton btnAceptar;
 	private JButton btnSeleccionarImagen;
@@ -69,6 +69,9 @@ public class Registro extends JFrame {
 	private JScrollPane scrollPane;
 	private JLabel lblFoto;
 	static Registro frame = new Registro();
+	private JLabel lblTelfono;
+	private JTextField txtEmail;
+	private JSeparator separator_11;
 	
 	/**
 	 * Launch the application.
@@ -93,7 +96,7 @@ public class Registro extends JFrame {
 		addWindowListener(new ThisWindowListener());
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 523, 333);
+		setBounds(100, 100, 523, 362);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,9 +107,9 @@ public class Registro extends JFrame {
 		contentPane.add(panel, BorderLayout.NORTH);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{-44, 36, 0, 0, 0, 0, 77, 88, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		separator_7 = new JSeparator();
@@ -124,16 +127,16 @@ public class Registro extends JFrame {
 		gbc_lblIdentificaci.gridy = 1;
 		panel.add(lblIdentificaci, gbc_lblIdentificaci);
 		
-		textField = new JTextField();
-		textField.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 2;
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 6;
-		gbc_textField.gridy = 1;
-		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtIdentificacion = new JTextField();
+		txtIdentificacion.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtIdentificacion = new GridBagConstraints();
+		gbc_txtIdentificacion.gridwidth = 2;
+		gbc_txtIdentificacion.insets = new Insets(0, 0, 5, 0);
+		gbc_txtIdentificacion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtIdentificacion.gridx = 6;
+		gbc_txtIdentificacion.gridy = 1;
+		panel.add(txtIdentificacion, gbc_txtIdentificacion);
+		txtIdentificacion.setColumns(10);
 		
 		separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
@@ -146,11 +149,11 @@ public class Registro extends JFrame {
 		scrollPane.setBorder(new TitledBorder(null, "Foto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.gridheight = 9;
+		gbc_scrollPane.gridheight = 10;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridy = 2;
 		panel.add(scrollPane, gbc_scrollPane);
 		
 		lblFoto = new JLabel("");
@@ -164,16 +167,16 @@ public class Registro extends JFrame {
 		gbc_lblNombre.gridy = 3;
 		panel.add(lblNombre, gbc_lblNombre);
 		
-		textField_1 = new JTextField();
-		textField_1.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 2;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 6;
-		gbc_textField_1.gridy = 3;
-		panel.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
+		gbc_txtNombre.gridwidth = 2;
+		gbc_txtNombre.insets = new Insets(0, 0, 5, 0);
+		gbc_txtNombre.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtNombre.gridx = 6;
+		gbc_txtNombre.gridy = 3;
+		panel.add(txtNombre, gbc_txtNombre);
+		txtNombre.setColumns(10);
 		
 		separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
@@ -190,16 +193,16 @@ public class Registro extends JFrame {
 		gbc_lblApellidos.gridy = 5;
 		panel.add(lblApellidos, gbc_lblApellidos);
 		
-		textField_2 = new JTextField();
-		textField_2.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.gridwidth = 2;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 6;
-		gbc_textField_2.gridy = 5;
-		panel.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		txtApellidos = new JTextField();
+		txtApellidos.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtApellidos = new GridBagConstraints();
+		gbc_txtApellidos.gridwidth = 2;
+		gbc_txtApellidos.insets = new Insets(0, 0, 5, 0);
+		gbc_txtApellidos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtApellidos.gridx = 6;
+		gbc_txtApellidos.gridy = 5;
+		panel.add(txtApellidos, gbc_txtApellidos);
+		txtApellidos.setColumns(10);
 		
 		separator_2 = new JSeparator();
 		GridBagConstraints gbc_separator_2 = new GridBagConstraints();
@@ -215,7 +218,7 @@ public class Registro extends JFrame {
 		gbc_separator_9.gridy = 7;
 		panel.add(separator_9, gbc_separator_9);
 		
-		lblEmail = new JLabel("Email: ");
+		lblEmail = new JLabel("Telefono: ");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
 		gbc_lblEmail.anchor = GridBagConstraints.EAST;
 		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
@@ -223,16 +226,16 @@ public class Registro extends JFrame {
 		gbc_lblEmail.gridy = 7;
 		panel.add(lblEmail, gbc_lblEmail);
 		
-		textField_3 = new JTextField();
-		textField_3.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 2;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 6;
-		gbc_textField_3.gridy = 7;
-		panel.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		txtTelefono = new JTextField();
+		txtTelefono.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtTelefono = new GridBagConstraints();
+		gbc_txtTelefono.gridwidth = 2;
+		gbc_txtTelefono.insets = new Insets(0, 0, 5, 0);
+		gbc_txtTelefono.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTelefono.gridx = 6;
+		gbc_txtTelefono.gridy = 7;
+		panel.add(txtTelefono, gbc_txtTelefono);
+		txtTelefono.setColumns(10);
 		
 		separator_3 = new JSeparator();
 		GridBagConstraints gbc_separator_3 = new GridBagConstraints();
@@ -241,11 +244,36 @@ public class Registro extends JFrame {
 		gbc_separator_3.gridy = 8;
 		panel.add(separator_3, gbc_separator_3);
 		
+		lblTelfono = new JLabel("Email: ");
+		GridBagConstraints gbc_lblTelfono = new GridBagConstraints();
+		gbc_lblTelfono.anchor = GridBagConstraints.EAST;
+		gbc_lblTelfono.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelfono.gridx = 5;
+		gbc_lblTelfono.gridy = 9;
+		panel.add(lblTelfono, gbc_lblTelfono);
+		
+		txtEmail = new JTextField();
+		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
+		gbc_txtEmail.gridwidth = 2;
+		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEmail.gridx = 6;
+		gbc_txtEmail.gridy = 9;
+		panel.add(txtEmail, gbc_txtEmail);
+		txtEmail.setColumns(10);
+		
+		separator_11 = new JSeparator();
+		GridBagConstraints gbc_separator_11 = new GridBagConstraints();
+		gbc_separator_11.insets = new Insets(0, 0, 5, 5);
+		gbc_separator_11.gridx = 5;
+		gbc_separator_11.gridy = 10;
+		panel.add(separator_11, gbc_separator_11);
+		
 		separator_8 = new JSeparator();
 		GridBagConstraints gbc_separator_8 = new GridBagConstraints();
 		gbc_separator_8.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_8.gridx = 4;
-		gbc_separator_8.gridy = 9;
+		gbc_separator_8.gridy = 11;
 		panel.add(separator_8, gbc_separator_8);
 		
 		lblConfirmarEmail = new JLabel("Confirmar email: ");
@@ -253,25 +281,25 @@ public class Registro extends JFrame {
 		gbc_lblConfirmarEmail.anchor = GridBagConstraints.EAST;
 		gbc_lblConfirmarEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_lblConfirmarEmail.gridx = 5;
-		gbc_lblConfirmarEmail.gridy = 9;
+		gbc_lblConfirmarEmail.gridy = 11;
 		panel.add(lblConfirmarEmail, gbc_lblConfirmarEmail);
 		
-		textField_4 = new JTextField();
-		textField_4.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.gridwidth = 2;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 6;
-		gbc_textField_4.gridy = 9;
-		panel.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		txtConfirmarEmail = new JTextField();
+		txtConfirmarEmail.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtConfirmarEmail = new GridBagConstraints();
+		gbc_txtConfirmarEmail.gridwidth = 2;
+		gbc_txtConfirmarEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_txtConfirmarEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtConfirmarEmail.gridx = 6;
+		gbc_txtConfirmarEmail.gridy = 11;
+		panel.add(txtConfirmarEmail, gbc_txtConfirmarEmail);
+		txtConfirmarEmail.setColumns(10);
 		
 		separator_4 = new JSeparator();
 		GridBagConstraints gbc_separator_4 = new GridBagConstraints();
 		gbc_separator_4.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_4.gridx = 5;
-		gbc_separator_4.gridy = 10;
+		gbc_separator_4.gridy = 12;
 		panel.add(separator_4, gbc_separator_4);
 		
 		btnSeleccionarImagen = new JButton("Seleccionar imagen");
@@ -281,7 +309,7 @@ public class Registro extends JFrame {
 		gbc_btnSeleccionarImagen.gridwidth = 2;
 		gbc_btnSeleccionarImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSeleccionarImagen.gridx = 1;
-		gbc_btnSeleccionarImagen.gridy = 11;
+		gbc_btnSeleccionarImagen.gridy = 13;
 		panel.add(btnSeleccionarImagen, gbc_btnSeleccionarImagen);
 		
 		lblContrasea = new JLabel("Contraseña: ");
@@ -289,25 +317,25 @@ public class Registro extends JFrame {
 		gbc_lblContrasea.anchor = GridBagConstraints.EAST;
 		gbc_lblContrasea.insets = new Insets(0, 0, 5, 5);
 		gbc_lblContrasea.gridx = 5;
-		gbc_lblContrasea.gridy = 11;
+		gbc_lblContrasea.gridy = 13;
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
-		textField_5 = new JTextField();
-		textField_5.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.gridwidth = 2;
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 6;
-		gbc_textField_5.gridy = 11;
-		panel.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		txtContrasena = new JTextField();
+		txtContrasena.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtContrasena = new GridBagConstraints();
+		gbc_txtContrasena.gridwidth = 2;
+		gbc_txtContrasena.insets = new Insets(0, 0, 5, 0);
+		gbc_txtContrasena.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtContrasena.gridx = 6;
+		gbc_txtContrasena.gridy = 13;
+		panel.add(txtContrasena, gbc_txtContrasena);
+		txtContrasena.setColumns(10);
 		
 		separator_5 = new JSeparator();
 		GridBagConstraints gbc_separator_5 = new GridBagConstraints();
 		gbc_separator_5.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_5.gridx = 5;
-		gbc_separator_5.gridy = 12;
+		gbc_separator_5.gridy = 14;
 		panel.add(separator_5, gbc_separator_5);
 		
 		lblConfirmarContrasea = new JLabel("Confirmar contraseña: ");
@@ -315,32 +343,32 @@ public class Registro extends JFrame {
 		gbc_lblConfirmarContrasea.anchor = GridBagConstraints.EAST;
 		gbc_lblConfirmarContrasea.insets = new Insets(0, 0, 5, 5);
 		gbc_lblConfirmarContrasea.gridx = 5;
-		gbc_lblConfirmarContrasea.gridy = 13;
+		gbc_lblConfirmarContrasea.gridy = 15;
 		panel.add(lblConfirmarContrasea, gbc_lblConfirmarContrasea);
 		
-		textField_6 = new JTextField();
-		textField_6.addFocusListener(new FocusListener());
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.gridwidth = 2;
-		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 6;
-		gbc_textField_6.gridy = 13;
-		panel.add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		txtConfirmarContrasena = new JTextField();
+		txtConfirmarContrasena.addFocusListener(new FocusListener());
+		GridBagConstraints gbc_txtConfirmarContrasena = new GridBagConstraints();
+		gbc_txtConfirmarContrasena.gridwidth = 2;
+		gbc_txtConfirmarContrasena.insets = new Insets(0, 0, 5, 0);
+		gbc_txtConfirmarContrasena.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtConfirmarContrasena.gridx = 6;
+		gbc_txtConfirmarContrasena.gridy = 15;
+		panel.add(txtConfirmarContrasena, gbc_txtConfirmarContrasena);
+		txtConfirmarContrasena.setColumns(10);
 		
 		separator_6 = new JSeparator();
 		GridBagConstraints gbc_separator_6 = new GridBagConstraints();
 		gbc_separator_6.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_6.gridx = 5;
-		gbc_separator_6.gridy = 14;
+		gbc_separator_6.gridy = 16;
 		panel.add(separator_6, gbc_separator_6);
 		
 		separator_10 = new JSeparator();
 		GridBagConstraints gbc_separator_10 = new GridBagConstraints();
 		gbc_separator_10.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_10.gridx = 1;
-		gbc_separator_10.gridy = 15;
+		gbc_separator_10.gridy = 17;
 		panel.add(separator_10, gbc_separator_10);
 		
 		btnCancelar = new JButton("Cancelar");
@@ -349,7 +377,7 @@ public class Registro extends JFrame {
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 6;
-		gbc_btnCancelar.gridy = 16;
+		gbc_btnCancelar.gridy = 18;
 		panel.add(btnCancelar, gbc_btnCancelar);
 		
 		btnAceptar = new JButton("Aceptar");
@@ -357,7 +385,7 @@ public class Registro extends JFrame {
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.anchor = GridBagConstraints.EAST;
 		gbc_btnAceptar.gridx = 7;
-		gbc_btnAceptar.gridy = 16;
+		gbc_btnAceptar.gridy = 18;
 		panel.add(btnAceptar, gbc_btnAceptar);
 	}
 
