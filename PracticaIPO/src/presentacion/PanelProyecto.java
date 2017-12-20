@@ -36,6 +36,8 @@ public class PanelProyecto extends JPanel {
 	private JSeparator separator_3;
 	private JLabel lblDescripcin;
 	private JTextField txtNombre;
+	private JTextField txtResponsable;
+	private JTextField txtDescripción;
 
 	/**
 	 * Create the panel.
@@ -68,7 +70,7 @@ public class PanelProyecto extends JPanel {
 		GridBagLayout gbl_pnlProyecto = new GridBagLayout();
 		gbl_pnlProyecto.columnWidths = new int[]{0, 0, 182, 0, 0, 0, 0, 0};
 		gbl_pnlProyecto.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pnlProyecto.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlProyecto.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_pnlProyecto.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		pnlProyecto.setLayout(gbl_pnlProyecto);
 		
@@ -126,6 +128,15 @@ public class PanelProyecto extends JPanel {
 		gbc_lblResponsableDelProyecto.gridy = 5;
 		pnlProyecto.add(lblResponsableDelProyecto, gbc_lblResponsableDelProyecto);
 		
+		txtResponsable = new JTextField();
+		GridBagConstraints gbc_txtResponsable = new GridBagConstraints();
+		gbc_txtResponsable.insets = new Insets(0, 0, 5, 5);
+		gbc_txtResponsable.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtResponsable.gridx = 2;
+		gbc_txtResponsable.gridy = 5;
+		pnlProyecto.add(txtResponsable, gbc_txtResponsable);
+		txtResponsable.setColumns(10);
+		
 		separator_3 = new JSeparator();
 		GridBagConstraints gbc_separator_3 = new GridBagConstraints();
 		gbc_separator_3.insets = new Insets(0, 0, 5, 5);
@@ -140,6 +151,15 @@ public class PanelProyecto extends JPanel {
 		gbc_lblDescripcin.gridx = 1;
 		gbc_lblDescripcin.gridy = 7;
 		pnlProyecto.add(lblDescripcin, gbc_lblDescripcin);
+		
+		txtDescripción = new JTextField();
+		GridBagConstraints gbc_txtDescripción = new GridBagConstraints();
+		gbc_txtDescripción.insets = new Insets(0, 0, 5, 5);
+		gbc_txtDescripción.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtDescripción.gridx = 2;
+		gbc_txtDescripción.gridy = 7;
+		pnlProyecto.add(txtDescripción, gbc_txtDescripción);
+		txtDescripción.setColumns(10);
 
 	}
 

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.Cursor;
+import javax.swing.JTextArea;
 
 public class PanelUsuario extends JPanel {
 	private JLabel lblMensaje;
@@ -21,7 +22,6 @@ public class PanelUsuario extends JPanel {
 	private JLabel lblEmail;
 	private JLabel lblApellidos;
 	private JLabel lblNombre;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -46,6 +46,7 @@ public class PanelUsuario extends JPanel {
 	private JSeparator separator_10;
 	private JList listProyectos;
 	private JList listTareas;
+	private JTextArea textArea;
 
 	/**
 	 * Create the panel.
@@ -54,8 +55,8 @@ public class PanelUsuario extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{9, 45, 48, 61, 46, 162, 181, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 84, 76, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		separator_7 = new JSeparator();
@@ -287,16 +288,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblMensaje.gridy = 18;
 		add(lblMensaje, gbc_lblMensaje);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridheight = 2;
-		gbc_textField.gridwidth = 4;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 18;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		textArea = new JTextArea();
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridheight = 2;
+		gbc_textArea.gridwidth = 4;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 3;
+		gbc_textArea.gridy = 18;
+		add(textArea, gbc_textArea);
 		
 		btnEnviarMensaje = new JButton("Enviar mensaje");
 		btnEnviarMensaje.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
