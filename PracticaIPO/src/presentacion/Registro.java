@@ -21,12 +21,16 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JSeparator;
 import java.awt.Cursor;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -226,7 +230,15 @@ public class Registro extends JFrame {
 		gbc_lblEmail.gridy = 7;
 		panel.add(lblEmail, gbc_lblEmail);
 		
-		txtTelefono = new JTextField();
+		MaskFormatter formatoTlfno;
+		try {
+		formatoTlfno = new MaskFormatter("'(###')' ###' ###' ###");
+		formatoTlfno.setPlaceholderCharacter('*');
+		txtTelefono = new JFormattedTextField(formatoTlfno);
+		} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
 		txtTelefono.addFocusListener(new FocusListener());
 		GridBagConstraints gbc_txtTelefono = new GridBagConstraints();
 		gbc_txtTelefono.gridwidth = 2;
@@ -253,6 +265,7 @@ public class Registro extends JFrame {
 		panel.add(lblTelfono, gbc_lblTelfono);
 		
 		txtEmail = new JTextField();
+		txtEmail.addFocusListener(new FocusListener());
 		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
 		gbc_txtEmail.gridwidth = 2;
 		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);

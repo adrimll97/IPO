@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.time.DayOfWeek;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.border.TitledBorder;
 
 public class PanelProyecto extends JPanel {
 	private JPanel pnlOpciones;
@@ -38,6 +42,9 @@ public class PanelProyecto extends JPanel {
 	private JTextField txtNombre;
 	private JTextField txtResponsable;
 	private JTextField txtDescripción;
+	private JDateChooser dateChooser;
+	private JScrollPane scrollPane;
+	private JList list;
 
 	/**
 	 * Create the panel.
@@ -68,10 +75,10 @@ public class PanelProyecto extends JPanel {
 		pnlProyecto = new JPanel();
 		add(pnlProyecto, BorderLayout.CENTER);
 		GridBagLayout gbl_pnlProyecto = new GridBagLayout();
-		gbl_pnlProyecto.columnWidths = new int[]{0, 0, 182, 0, 0, 0, 0, 0};
-		gbl_pnlProyecto.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pnlProyecto.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_pnlProyecto.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlProyecto.columnWidths = new int[]{0, 0, 182, 0, 0, 0, 38, 0, 0, 0, 42, 0};
+		gbl_pnlProyecto.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pnlProyecto.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlProyecto.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		pnlProyecto.setLayout(gbl_pnlProyecto);
 		
 		separator = new JSeparator();
@@ -98,6 +105,20 @@ public class PanelProyecto extends JPanel {
 		pnlProyecto.add(txtNombre, gbc_txtNombre);
 		txtNombre.setColumns(10);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBorder(new TitledBorder(null, "Tareas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 7;
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 8;
+		gbc_scrollPane.gridy = 1;
+		pnlProyecto.add(scrollPane, gbc_scrollPane);
+		
+		list = new JList();
+		scrollPane.setViewportView(list);
+		
 		separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
 		gbc_separator_1.insets = new Insets(0, 0, 5, 5);
@@ -112,6 +133,14 @@ public class PanelProyecto extends JPanel {
 		gbc_lblFechaDeCreacin.gridx = 1;
 		gbc_lblFechaDeCreacin.gridy = 3;
 		pnlProyecto.add(lblFechaDeCreacin, gbc_lblFechaDeCreacin);
+		
+		dateChooser = new JDateChooser();
+		GridBagConstraints gbc_dateChooser = new GridBagConstraints();
+		gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
+		gbc_dateChooser.fill = GridBagConstraints.BOTH;
+		gbc_dateChooser.gridx = 2;
+		gbc_dateChooser.gridy = 3;
+		pnlProyecto.add(dateChooser, gbc_dateChooser);
 		
 		separator_2 = new JSeparator();
 		GridBagConstraints gbc_separator_2 = new GridBagConstraints();

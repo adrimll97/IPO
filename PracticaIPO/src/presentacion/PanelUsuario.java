@@ -22,13 +22,13 @@ public class PanelUsuario extends JPanel {
 	private JLabel lblEmail;
 	private JLabel lblApellidos;
 	private JLabel lblNombre;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JLabel lblNewLabel;
+	private JTextField txtConocimientos;
+	private JTextField txtRol;
+	private JTextField txtTelefono;
+	private JTextField txtEmail;
+	private JTextField txtApellidos;
+	private JTextField txtNombre;
+	private JLabel lblFoto;
 	private JButton btnEnviarMensaje;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
@@ -46,7 +46,7 @@ public class PanelUsuario extends JPanel {
 	private JSeparator separator_10;
 	private JList listProyectos;
 	private JList listTareas;
-	private JTextArea textArea;
+	private JTextArea txaMensaje;
 
 	/**
 	 * Create the panel.
@@ -73,16 +73,16 @@ public class PanelUsuario extends JPanel {
 		gbc_separator_10.gridy = 1;
 		add(separator_10, gbc_separator_10);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setBorder(new TitledBorder(null, "Foto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel.gridwidth = 2;
-		gbc_lblNewLabel.gridheight = 2;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 1;
-		add(lblNewLabel, gbc_lblNewLabel);
+		lblFoto = new JLabel("");
+		lblFoto.setBorder(new TitledBorder(null, "Foto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_lblFoto = new GridBagConstraints();
+		gbc_lblFoto.fill = GridBagConstraints.BOTH;
+		gbc_lblFoto.gridwidth = 2;
+		gbc_lblFoto.gridheight = 2;
+		gbc_lblFoto.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFoto.gridx = 1;
+		gbc_lblFoto.gridy = 1;
+		add(lblFoto, gbc_lblFoto);
 		
 		separator_9 = new JSeparator();
 		GridBagConstraints gbc_separator_9 = new GridBagConstraints();
@@ -100,15 +100,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblNombre.gridy = 4;
 		add(lblNombre, gbc_lblNombre);
 		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.gridwidth = 2;
-		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 3;
-		gbc_textField_6.gridy = 4;
-		add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		txtNombre = new JTextField();
+		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
+		gbc_txtNombre.gridwidth = 2;
+		gbc_txtNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_txtNombre.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtNombre.gridx = 3;
+		gbc_txtNombre.gridy = 4;
+		add(txtNombre, gbc_txtNombre);
+		txtNombre.setColumns(10);
 		
 		scpProyectos = new JScrollPane();
 		scpProyectos.setBorder(new TitledBorder(null, "Proyectos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -152,15 +152,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblApellidos.gridy = 6;
 		add(lblApellidos, gbc_lblApellidos);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.gridwidth = 2;
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 3;
-		gbc_textField_5.gridy = 6;
-		add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		txtApellidos = new JTextField();
+		GridBagConstraints gbc_txtApellidos = new GridBagConstraints();
+		gbc_txtApellidos.gridwidth = 2;
+		gbc_txtApellidos.insets = new Insets(0, 0, 5, 5);
+		gbc_txtApellidos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtApellidos.gridx = 3;
+		gbc_txtApellidos.gridy = 6;
+		add(txtApellidos, gbc_txtApellidos);
+		txtApellidos.setColumns(10);
 		
 		separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
@@ -178,15 +178,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblEmail.gridy = 8;
 		add(lblEmail, gbc_lblEmail);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.gridwidth = 2;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 3;
-		gbc_textField_4.gridy = 8;
-		add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		txtEmail = new JTextField();
+		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
+		gbc_txtEmail.gridwidth = 2;
+		gbc_txtEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEmail.gridx = 3;
+		gbc_txtEmail.gridy = 8;
+		add(txtEmail, gbc_txtEmail);
+		txtEmail.setColumns(10);
 		
 		separator_2 = new JSeparator();
 		GridBagConstraints gbc_separator_2 = new GridBagConstraints();
@@ -204,15 +204,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblTelfono.gridy = 10;
 		add(lblTelfono, gbc_lblTelfono);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 2;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 3;
-		gbc_textField_3.gridy = 10;
-		add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		txtTelefono = new JTextField();
+		GridBagConstraints gbc_txtTelefono = new GridBagConstraints();
+		gbc_txtTelefono.gridwidth = 2;
+		gbc_txtTelefono.insets = new Insets(0, 0, 5, 5);
+		gbc_txtTelefono.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTelefono.gridx = 3;
+		gbc_txtTelefono.gridy = 10;
+		add(txtTelefono, gbc_txtTelefono);
+		txtTelefono.setColumns(10);
 		
 		separator_3 = new JSeparator();
 		GridBagConstraints gbc_separator_3 = new GridBagConstraints();
@@ -230,15 +230,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblRolPrincipal.gridy = 12;
 		add(lblRolPrincipal, gbc_lblRolPrincipal);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.gridwidth = 2;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 3;
-		gbc_textField_2.gridy = 12;
-		add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		txtRol = new JTextField();
+		GridBagConstraints gbc_txtRol = new GridBagConstraints();
+		gbc_txtRol.gridwidth = 2;
+		gbc_txtRol.insets = new Insets(0, 0, 5, 5);
+		gbc_txtRol.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtRol.gridx = 3;
+		gbc_txtRol.gridy = 12;
+		add(txtRol, gbc_txtRol);
+		txtRol.setColumns(10);
 		
 		separator_8 = new JSeparator();
 		GridBagConstraints gbc_separator_8 = new GridBagConstraints();
@@ -255,15 +255,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblNewLabel_1.gridy = 14;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 2;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.BOTH;
-		gbc_textField_1.gridx = 3;
-		gbc_textField_1.gridy = 14;
-		add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		txtConocimientos = new JTextField();
+		GridBagConstraints gbc_txtConocimientos = new GridBagConstraints();
+		gbc_txtConocimientos.gridwidth = 2;
+		gbc_txtConocimientos.insets = new Insets(0, 0, 5, 5);
+		gbc_txtConocimientos.fill = GridBagConstraints.BOTH;
+		gbc_txtConocimientos.gridx = 3;
+		gbc_txtConocimientos.gridy = 14;
+		add(txtConocimientos, gbc_txtConocimientos);
+		txtConocimientos.setColumns(10);
 		
 		separator_5 = new JSeparator();
 		GridBagConstraints gbc_separator_5 = new GridBagConstraints();
@@ -288,15 +288,15 @@ public class PanelUsuario extends JPanel {
 		gbc_lblMensaje.gridy = 18;
 		add(lblMensaje, gbc_lblMensaje);
 		
-		textArea = new JTextArea();
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridheight = 2;
-		gbc_textArea.gridwidth = 4;
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 3;
-		gbc_textArea.gridy = 18;
-		add(textArea, gbc_textArea);
+		txaMensaje = new JTextArea();
+		GridBagConstraints gbc_txaMensaje = new GridBagConstraints();
+		gbc_txaMensaje.gridheight = 2;
+		gbc_txaMensaje.gridwidth = 4;
+		gbc_txaMensaje.insets = new Insets(0, 0, 5, 5);
+		gbc_txaMensaje.fill = GridBagConstraints.BOTH;
+		gbc_txaMensaje.gridx = 3;
+		gbc_txaMensaje.gridy = 18;
+		add(txaMensaje, gbc_txaMensaje);
 		
 		btnEnviarMensaje = new JButton("Enviar mensaje");
 		btnEnviarMensaje.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

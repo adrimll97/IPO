@@ -1,5 +1,5 @@
 package dominio;
-//Poner en el arbol un cajon de boton derecho de raton en el que te deje añadir proyectos y tareas
+//Poner en el arbol un pop-pup de boton derecho de raton en el que te deje añadir proyectos y tareas
 public class Proyecto {
 	
 	private int idProyecto;
