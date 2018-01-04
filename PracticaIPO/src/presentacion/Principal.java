@@ -63,6 +63,7 @@ public class Principal extends JFrame {
 	private JPanel pnlProyecto;
 	private JPanel pnlTarea;
 	private JPanel pnlVerImagenes;
+	private RoundButton btnAyuda;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -96,11 +97,11 @@ public class Principal extends JFrame {
 		pnlInfoUsuario.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPane.add(pnlInfoUsuario, BorderLayout.NORTH);
 		GridBagLayout gbl_pnlInfoUsuario = new GridBagLayout();
-		gbl_pnlInfoUsuario.columnWidths = new int[] { 79, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				33, 0, 0 };
+		gbl_pnlInfoUsuario.columnWidths = new int[] { 79, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 30,
+				30, 30, 30, 30, 0, 0 };
 		gbl_pnlInfoUsuario.rowHeights = new int[] { 41, 40, 0 };
-		gbl_pnlInfoUsuario.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_pnlInfoUsuario.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlInfoUsuario.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		pnlInfoUsuario.setLayout(gbl_pnlInfoUsuario);
 
@@ -129,6 +130,9 @@ public class Principal extends JFrame {
 		pnlInfoUsuario.add(lblApellidos, gbc_lblApellidos);
 
 		btnCerrarSesion = new RoundButton("close");
+		btnCerrarSesion.setPreferredSize(new Dimension(65, 65));
+		btnCerrarSesion.setMinimumSize(new Dimension(65, 65));
+		btnCerrarSesion.setMaximumSize(new Dimension(65, 65));
 		btnCerrarSesion.addActionListener(new CerrarSesionActionListener());
 		btnCerrarSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCerrarSesion.setIcon(new ImageIcon(Principal.class.getResource("/presentacion/power-button-off.png")));
@@ -144,7 +148,6 @@ public class Principal extends JFrame {
 		separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.gridheight = 2;
-		gbc_separator.insets = new Insets(0, 0, 5, 0);
 		gbc_separator.gridx = 26;
 		gbc_separator.gridy = 0;
 		pnlInfoUsuario.add(separator, gbc_separator);
@@ -157,23 +160,44 @@ public class Principal extends JFrame {
 		gbc_lblUltimoAcceso.gridy = 1;
 		pnlInfoUsuario.add(lblUltimoAcceso, gbc_lblUltimoAcceso);
 		
+		btnAyuda = new RoundButton("close");
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.setIcon(new ImageIcon(Principal.class.getResource("/presentacion/question-mark.png")));
+		btnAyuda.setText("");
+		btnAyuda.setPreferredSize(new Dimension(65, 65));
+		btnAyuda.setMinimumSize(new Dimension(65, 65));
+		btnAyuda.setMaximumSize(new Dimension(65, 65));
+		GridBagConstraints gbc_btnAyuda = new GridBagConstraints();
+		gbc_btnAyuda.gridheight = 2;
+		gbc_btnAyuda.gridwidth = 3;
+		gbc_btnAyuda.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAyuda.gridx = 20;
+		gbc_btnAyuda.gridy = 0;
+		pnlInfoUsuario.add(btnAyuda, gbc_btnAyuda);
+
 		scpArbol = new JScrollPane();
 		scpArbol.setPreferredSize(new Dimension(150, 2));
 		contentPane.add(scpArbol, BorderLayout.WEST);
-		
+
 		tree = new JTree();
+		tree.setRootVisible(false);
 		tree.addTreeSelectionListener(new TreeTreeSelectionListener());
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Inicio") {
 			{
 				DefaultMutableTreeNode node_1;
 				DefaultMutableTreeNode node_2;
+				DefaultMutableTreeNode node_3;
 				node_1 = new DefaultMutableTreeNode("Proyectos");
 				node_2 = new DefaultMutableTreeNode("Proyecto 1");
-				node_2.add(new DefaultMutableTreeNode("Tarea 1.1"));
+				node_3 = new DefaultMutableTreeNode("Tarea 1.1");
+				node_3.add(new DefaultMutableTreeNode("Imagen 1.1.1"));
+				node_2.add(node_3);
 				node_1.add(node_2);
 				node_2 = new DefaultMutableTreeNode("Proyecto 2");
 				node_2.add(new DefaultMutableTreeNode("Tarea 2.1"));
-				node_2.add(new DefaultMutableTreeNode("Tarea 2.2"));
+				node_3 = new DefaultMutableTreeNode("Tarea 2.2");
+				node_3.add(new DefaultMutableTreeNode("Imagen 2.2.1"));
+				node_2.add(node_3);
 				node_1.add(node_2);
 				add(node_1);
 				node_1 = new DefaultMutableTreeNode("Usuarios");
@@ -189,23 +213,22 @@ public class Principal extends JFrame {
 
 		tree.setCellRenderer(new MiRenderizadoArbol());
 		scpArbol.setViewportView(tree);
-		
+
 		panelCard = new JPanel();
 		contentPane.add(panelCard, BorderLayout.CENTER);
 		panelCard.setLayout(new CardLayout(0, 0));
-		
+
 		pnlUsuario = new PanelUsuario();
 		panelCard.add(pnlUsuario, "Usuario");
-		
+
 		pnlProyecto = new PanelProyecto();
 		panelCard.add(pnlProyecto, "Proyecto");
-		
+
 		pnlTarea = new PanelTarea();
 		panelCard.add(pnlTarea, "Tarea");
-		
-		pnlVerImagenes = new JPanel();
-		panelCard.add(pnlVerImagenes, "Imagenes");
 
+		pnlVerImagenes = new VerImagenes();
+		panelCard.add(pnlVerImagenes, "Imagen");
 	}
 
 	private class CerrarSesionActionListener implements ActionListener {
@@ -220,6 +243,7 @@ public class Principal extends JFrame {
 			}
 		}
 	}
+
 	private class ThisWindowListener extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -234,25 +258,28 @@ public class Principal extends JFrame {
 			}
 		}
 	}
+
 	private class TreeTreeSelectionListener implements TreeSelectionListener {
 		public void valueChanged(TreeSelectionEvent arg0) {
-			//Para saber en que nodo del árbol estoy
-			String nodo = (arg0.getPath().getLastPathComponent()).toString();
-			if(nodo.contains("Proyecto")) {
+			// Para saber en que nodo del árbol estoy
+			String nodo = arg0.getPath().getPathComponent(1).toString();
+			int n = arg0.getPath().getPathCount();
+			if(n == 3 && nodo == "Proyectos") {
 				nodo = "Proyecto";
-			} else if (nodo.contains("Tarea")) {
-				nodo = "Tarea";
-			} else if (nodo.contains("Usuario")) {
+			} else if (n == 3 && nodo == "Usuarios") {
 				nodo = "Usuario";
+			} else if (n == 4 && nodo == "Proyectos") {
+				nodo = "Tarea";
+			} else if (n == 5 && nodo == "Proyectos") {
+				nodo = "Imagen";
 			}
-			//System.out.println("Nodo seleccionado "+ nodo);
 			switch (nodo) {
 			case "Usuario":
 			case "Proyecto":
 			case "Tarea":
+			case "Imagen":
 				((CardLayout) panelCard.getLayout()).show(panelCard, nodo);
 			}
 		}
 	}
-
 }
