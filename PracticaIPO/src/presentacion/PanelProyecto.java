@@ -5,7 +5,10 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+
 import javax.swing.JToolBar;
+import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.GroupLayout;
@@ -22,6 +25,7 @@ import java.time.DayOfWeek;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
@@ -30,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -68,11 +73,13 @@ public class PanelProyecto extends JPanel {
 	private JButton btnAadirTarea;
 	private JPopupMenu popupMenu;
 	private JButton btnAadirTarea_1;
+	public JPanel panelCard;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelProyecto() {
+	public PanelProyecto(JPanel panelCard) {
+		this.panelCard = panelCard;
 		setLayout(new BorderLayout(0, 0));
 		
 		pnlOpciones = new JPanel();
@@ -155,6 +162,7 @@ public class PanelProyecto extends JPanel {
 		addPopup(listaTareas, popupMenu);
 		
 		btnAadirTarea_1 = new JButton("Añadir tarea");
+		btnAadirTarea_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAadirTarea_1.setEnabled(false);
 		popupMenu.add(btnAadirTarea_1);
 		
@@ -162,6 +170,7 @@ public class PanelProyecto extends JPanel {
 		scrollPane.setColumnHeaderView(toolBar);
 		
 		btnAadirTarea = new JButton("Añadir tarea");
+		btnAadirTarea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAadirTarea.setEnabled(false);
 		toolBar.add(btnAadirTarea);
 		
@@ -274,6 +283,7 @@ public class PanelProyecto extends JPanel {
 		pnlProyecto.add(separator_7, gbc_separator_7);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new BtnEliminarActionListener());
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setEnabled(false);
 		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
@@ -284,6 +294,7 @@ public class PanelProyecto extends JPanel {
 		pnlProyecto.add(btnEliminar, gbc_btnEliminar);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new BtnEditarActionListener());
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setEnabled(false);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
@@ -294,6 +305,7 @@ public class PanelProyecto extends JPanel {
 		pnlProyecto.add(btnEditar, gbc_btnEditar);
 		
 		btnAñadir = new JButton("Añadir");
+		btnAñadir.addActionListener(new BtnAñadirActionListener());
 		btnAñadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAñadir.setEnabled(false);
 		GridBagConstraints gbc_btnAñadir = new GridBagConstraints();
@@ -370,6 +382,51 @@ public class PanelProyecto extends JPanel {
 			btnEditar.setEnabled(false);
 			btnAadirTarea.setEnabled(true);
 			btnAadirTarea_1.setEnabled(true);
+		}
+	}
+	private class BtnEliminarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar el proyecto?", "Eliminar",
+					dialogButton);
+			if (dialogResult == 0) {
+				/*
+				 * Eliminar proyecto
+				 */
+				JOptionPane.showMessageDialog(null, "Proyecto eliminado");
+			} else {
+				JOptionPane.showMessageDialog(null, "Eliminación cancelada");
+			}
+		}
+	}
+	private class BtnEditarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere editar el proyecto?", "Editar",
+					dialogButton);
+			if (dialogResult == 0) {
+				/*
+				 * Guardar nuevos datos proyecto
+				 */
+				JOptionPane.showMessageDialog(null, "Proyecto editado");
+			} else {
+				JOptionPane.showMessageDialog(null, "Edición cancelada");
+			}
+		}
+	}
+	private class BtnAñadirActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere guardar el nuevo proyecto?", "Añadir",
+					dialogButton);
+			if (dialogResult == 0) {
+				/*
+				 * Guardar proyecto nuevo
+				 */
+				JOptionPane.showMessageDialog(null, "Proyecto guardado");
+			} else {
+				JOptionPane.showMessageDialog(null, "Guardado cancelado");
+			}
 		}
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {

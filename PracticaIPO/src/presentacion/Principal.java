@@ -55,7 +55,6 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	static Principal frame = new Principal();
 	private JScrollPane scpArbol;
 	private JTree tree;
 	private JPanel panelCard;
@@ -69,6 +68,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Principal frame = new Principal();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -161,6 +161,7 @@ public class Principal extends JFrame {
 		pnlInfoUsuario.add(lblUltimoAcceso, gbc_lblUltimoAcceso);
 		
 		btnAyuda = new RoundButton("close");
+		btnAyuda.addActionListener(new BtnAyudaActionListener());
 		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAyuda.setIcon(new ImageIcon(Principal.class.getResource("/presentacion/question-mark.png")));
 		btnAyuda.setText("");
@@ -190,13 +191,11 @@ public class Principal extends JFrame {
 				node_1 = new DefaultMutableTreeNode("Proyectos");
 				node_2 = new DefaultMutableTreeNode("Proyecto 1");
 				node_3 = new DefaultMutableTreeNode("Tarea 1.1");
-				node_3.add(new DefaultMutableTreeNode("Imagen 1.1.1"));
 				node_2.add(node_3);
 				node_1.add(node_2);
 				node_2 = new DefaultMutableTreeNode("Proyecto 2");
 				node_2.add(new DefaultMutableTreeNode("Tarea 2.1"));
 				node_3 = new DefaultMutableTreeNode("Tarea 2.2");
-				node_3.add(new DefaultMutableTreeNode("Imagen 2.2.1"));
 				node_2.add(node_3);
 				node_1.add(node_2);
 				add(node_1);
@@ -218,13 +217,13 @@ public class Principal extends JFrame {
 		contentPane.add(panelCard, BorderLayout.CENTER);
 		panelCard.setLayout(new CardLayout(0, 0));
 
-		pnlUsuario = new PanelUsuario();
+		pnlUsuario = new PanelUsuario(panelCard);
 		panelCard.add(pnlUsuario, "Usuario");
 
-		pnlProyecto = new PanelProyecto();
+		pnlProyecto = new PanelProyecto(panelCard);
 		panelCard.add(pnlProyecto, "Proyecto");
 
-		pnlTarea = new PanelTarea();
+		pnlTarea = new PanelTarea(panelCard);
 		panelCard.add(pnlTarea, "Tarea");
 
 		pnlVerImagenes = new VerImagenes();
@@ -234,7 +233,7 @@ public class Principal extends JFrame {
 	private class CerrarSesionActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
-			int dialogResult = JOptionPane.showConfirmDialog(frame, "¿Quiere cerrar sesión?", "Cerrar sesión",
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere cerrar sesión?", "Cerrar sesión",
 					dialogButton);
 			if (dialogResult == 0) {
 				Autentificacion login = new Autentificacion();
@@ -247,14 +246,14 @@ public class Principal extends JFrame {
 	private class ThisWindowListener extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
-			int dialogResult = JOptionPane.showConfirmDialog(frame, "¿Quiere cerrar sesión?", "Cerrar sesión",
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere cerrar sesión?", "Cerrar sesión",
 					dialogButton);
 			if (dialogResult == 0) {
-				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 				Autentificacion login = new Autentificacion();
 				login.getFrmLogin().setVisible(true);
 			} else {
-				frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+				setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			}
 		}
 	}
@@ -280,6 +279,12 @@ public class Principal extends JFrame {
 			case "Imagen":
 				((CardLayout) panelCard.getLayout()).show(panelCard, nodo);
 			}
+		}
+	}
+	private class BtnAyudaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Ayuda ayuda = new Ayuda();
+			ayuda.setVisible(true);
 		}
 	}
 }
