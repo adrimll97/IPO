@@ -105,8 +105,6 @@ public class Principal extends JFrame {
 		ControlUsuarios cu = new ControlUsuarios();
 		Usuario user = cu.obtenerUsuario(a.getUsuario());
 
-
-
 		addWindowListener(new ThisWindowListener());
 		setTitle("Principal");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
