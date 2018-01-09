@@ -37,6 +37,9 @@ import java.awt.Dimension;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
+
+import dominio.ControlUsuarios;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -44,7 +47,7 @@ public class Autentificacion {
 
 	private JFrame frmLogin;
 	private JPanel panel;
-	private JLabel lblIdentificacin;
+	private JLabel lblUsuario;
 	private JLabel lblContrasea;
 	private JTextField tfUsuario;
 	private JButton btnIniciar;
@@ -105,6 +108,7 @@ public class Autentificacion {
 		panel.setLayout(gbl_panel);
 
 		rdbtnEspaol = new JRadioButton("Español");
+		rdbtnEspaol.setIcon(new ImageIcon(Autentificacion.class.getResource("/presentacion/banderaEsp.gif")));
 		rdbtnEspaol.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		buttonGroup.add(rdbtnEspaol);
 		rdbtnEspaol.setSelected(true);
@@ -117,6 +121,7 @@ public class Autentificacion {
 		panel.add(rdbtnEspaol, gbc_rdbtnEspaol);
 
 		rdbtnIngles = new JRadioButton("Ingles");
+		rdbtnIngles.setIcon(new ImageIcon(Autentificacion.class.getResource("/presentacion/banderaIng.gif")));
 		rdbtnIngles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		buttonGroup.add(rdbtnIngles);
 		rdbtnIngles.setForeground(Color.BLUE);
@@ -127,13 +132,13 @@ public class Autentificacion {
 		gbc_rdbtnIngles.gridy = 0;
 		panel.add(rdbtnIngles, gbc_rdbtnIngles);
 
-		lblIdentificacin = new JLabel("Identificación:");
-		GridBagConstraints gbc_lblIdentificacin = new GridBagConstraints();
-		gbc_lblIdentificacin.anchor = GridBagConstraints.EAST;
-		gbc_lblIdentificacin.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIdentificacin.gridx = 1;
-		gbc_lblIdentificacin.gridy = 2;
-		panel.add(lblIdentificacin, gbc_lblIdentificacin);
+		lblUsuario = new JLabel("Usuario:");
+		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
+		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuario.gridx = 1;
+		gbc_lblUsuario.gridy = 2;
+		panel.add(lblUsuario, gbc_lblUsuario);
 
 		tfUsuario = new JTextField();
 		tfUsuario.addFocusListener(new TfUsuarioFocusListener());
@@ -259,7 +264,7 @@ public class Autentificacion {
 	
 	private class TextFieldActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (String.valueOf(tfUsuario.getText()).equals(usuario)) {
+			if (comprobarUsuarios()) {
 				tfUsuario.setBackground(Color.GREEN);
 				lblContrasea.setEnabled(true);
 				pfContraseña.setEnabled(true);
@@ -273,7 +278,7 @@ public class Autentificacion {
 
 	private class PfContraseñaActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (String.valueOf(pfContraseña.getPassword()).equals(contraseña)) {
+			if (comprobarPass()) {
 				pfContraseña.setBackground(Color.GREEN);
 				btnIniciar.setEnabled(true);
 			} else {
@@ -285,7 +290,7 @@ public class Autentificacion {
 
 	private class TfUsuarioFocusListener extends FocusAdapter {
 		public void focusLost(FocusEvent arg0) {
-			if (String.valueOf(tfUsuario.getText()).equals(usuario)) {
+			if (comprobarUsuarios()) {
 				tfUsuario.setBackground(Color.GREEN);
 				lblContrasea.setEnabled(true);
 				pfContraseña.setEnabled(true);
@@ -299,7 +304,7 @@ public class Autentificacion {
 
 	private class PfContraseñaFocusListener extends FocusAdapter {
 		public void focusLost(FocusEvent e) {
-			if (String.valueOf(pfContraseña.getPassword()).equals(contraseña)) {
+			if (comprobarPass()) {
 				pfContraseña.setBackground(Color.GREEN);
 				btnIniciar.setEnabled(true);
 			} else {
@@ -307,5 +312,15 @@ public class Autentificacion {
 				btnIniciar.setEnabled(false);
 			}
 		}
+	}
+	
+	public boolean comprobarUsuarios() {
+		ControlUsuarios cu = new ControlUsuarios();
+		return cu.comprobarIdentificacion(Integer.parseInt(tfUsuario.getText()));
+	}
+	
+	public boolean comprobarPass() {
+		ControlUsuarios cu = new ControlUsuarios();
+		return cu.comprobarPass(Integer.parseInt(tfUsuario.getText()), String.valueOf(pfContraseña.getPassword()));
 	}
 }

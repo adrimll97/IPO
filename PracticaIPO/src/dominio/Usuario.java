@@ -11,13 +11,17 @@ public class Usuario {
 	private String rolPrincipal;
 	private String conocimientos;
 	
-	public Usuario(int idUser, String nombre, String apellidos, String email, String contraseña) {
+	public Usuario() {
+		
+	}
+	
+	public Usuario(int idUser, String nombre, String apellidos, String email, String contraseña, int telefono) {
 		this.idUser = idUser;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.contraseña = contraseña;
-		this.telf = 0;
+		this.telf = telefono;
 		this.rolPrincipal = "";
 		this.conocimientos = "";		
 	}
@@ -88,7 +92,7 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return "Usuario: "+nombre+" "+apellidos+", "+rolPrincipal;
+		return nombre;
 	}
 	
 }

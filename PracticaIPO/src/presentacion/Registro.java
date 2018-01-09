@@ -7,19 +7,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-
-import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSeparator;
@@ -27,6 +26,9 @@ import java.awt.Cursor;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
+
+import dominio.ControlUsuarios;
+import dominio.Usuario;
 
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -36,13 +38,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.Component;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Registro extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
-	private JLabel lblIdentificaci;
+	private JLabel lblUsuario;
 	private JLabel lblNombre;
 	private JLabel lblApellidos;
 	private JLabel lblEmail;
@@ -72,11 +77,25 @@ public class Registro extends JFrame {
 	private JSeparator separator_10;
 	private JScrollPane scrollPane;
 	private JLabel lblFoto;
-	static Registro frame = new Registro();
 	private JLabel lblTelfono;
 	private JTextField txtEmail;
 	private JSeparator separator_11;
-	
+	private JLabel lblWarningUsuario;
+	private JLabel lblWarningNombre;
+	private JLabel lblWarningApellidos;
+	private JLabel lblWarningTelefono;
+	private JLabel lblWarningEmail;
+	private JLabel lblWarningConfirmarEmail;
+	private JLabel lblWarningContraseña;
+	private JLabel lblWarningConfirmarContraseña;
+	private boolean usuarioV;
+	private boolean nombreV;
+	private boolean apellidosV;
+	private boolean telefonoV;
+	private boolean emailV;
+	private boolean confEmailV;
+	private boolean contraseñaV;
+	private boolean confContraseñaV;
 	/**
 	 * Launch the application.
 	 */
@@ -84,6 +103,7 @@ public class Registro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Registro frame = new Registro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -100,7 +120,7 @@ public class Registro extends JFrame {
 		addWindowListener(new ThisWindowListener());
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 523, 362);
+		setBounds(100, 100, 553, 362);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -110,10 +130,10 @@ public class Registro extends JFrame {
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{-44, 36, 0, 0, 0, 0, 77, 88, 0};
+		gbl_panel.columnWidths = new int[]{-44, 36, 0, 0, 0, 0, 77, 88, 30, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		separator_7 = new JSeparator();
@@ -123,24 +143,33 @@ public class Registro extends JFrame {
 		gbc_separator_7.gridy = 0;
 		panel.add(separator_7, gbc_separator_7);
 		
-		lblIdentificaci = new JLabel("Identificación: ");
-		GridBagConstraints gbc_lblIdentificaci = new GridBagConstraints();
-		gbc_lblIdentificaci.anchor = GridBagConstraints.EAST;
-		gbc_lblIdentificaci.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIdentificaci.gridx = 5;
-		gbc_lblIdentificaci.gridy = 1;
-		panel.add(lblIdentificaci, gbc_lblIdentificaci);
+		lblUsuario = new JLabel("Usuario: ");
+		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
+		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuario.gridx = 5;
+		gbc_lblUsuario.gridy = 1;
+		panel.add(lblUsuario, gbc_lblUsuario);
 		
 		txtIdentificacion = new JTextField();
-		txtIdentificacion.addFocusListener(new FocusListener());
+		txtIdentificacion.addFocusListener(new TxtIdentificacionFocusListener());
+		txtIdentificacion.setBorder(UIManager.getBorder("TextField.border"));
+		txtIdentificacion.setCaretColor(new Color(0, 0, 0));
 		GridBagConstraints gbc_txtIdentificacion = new GridBagConstraints();
 		gbc_txtIdentificacion.gridwidth = 2;
-		gbc_txtIdentificacion.insets = new Insets(0, 0, 5, 0);
+		gbc_txtIdentificacion.insets = new Insets(0, 0, 5, 5);
 		gbc_txtIdentificacion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtIdentificacion.gridx = 6;
 		gbc_txtIdentificacion.gridy = 1;
 		panel.add(txtIdentificacion, gbc_txtIdentificacion);
 		txtIdentificacion.setColumns(10);
+		
+		lblWarningUsuario = new JLabel("");
+		GridBagConstraints gbc_lblWarningUsuario = new GridBagConstraints();
+		gbc_lblWarningUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningUsuario.gridx = 8;
+		gbc_lblWarningUsuario.gridy = 1;
+		panel.add(lblWarningUsuario, gbc_lblWarningUsuario);
 		
 		separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
@@ -172,15 +201,22 @@ public class Registro extends JFrame {
 		panel.add(lblNombre, gbc_lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.addFocusListener(new FocusListener());
+		txtNombre.addFocusListener(new TxtNombreFocusListener());
 		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
 		gbc_txtNombre.gridwidth = 2;
-		gbc_txtNombre.insets = new Insets(0, 0, 5, 0);
+		gbc_txtNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNombre.gridx = 6;
 		gbc_txtNombre.gridy = 3;
 		panel.add(txtNombre, gbc_txtNombre);
 		txtNombre.setColumns(10);
+		
+		lblWarningNombre = new JLabel("");
+		GridBagConstraints gbc_lblWarningNombre = new GridBagConstraints();
+		gbc_lblWarningNombre.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningNombre.gridx = 8;
+		gbc_lblWarningNombre.gridy = 3;
+		panel.add(lblWarningNombre, gbc_lblWarningNombre);
 		
 		separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
@@ -198,15 +234,22 @@ public class Registro extends JFrame {
 		panel.add(lblApellidos, gbc_lblApellidos);
 		
 		txtApellidos = new JTextField();
-		txtApellidos.addFocusListener(new FocusListener());
+		txtApellidos.addFocusListener(new TxtApellidosFocusListener());
 		GridBagConstraints gbc_txtApellidos = new GridBagConstraints();
 		gbc_txtApellidos.gridwidth = 2;
-		gbc_txtApellidos.insets = new Insets(0, 0, 5, 0);
+		gbc_txtApellidos.insets = new Insets(0, 0, 5, 5);
 		gbc_txtApellidos.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtApellidos.gridx = 6;
 		gbc_txtApellidos.gridy = 5;
 		panel.add(txtApellidos, gbc_txtApellidos);
 		txtApellidos.setColumns(10);
+		
+		lblWarningApellidos = new JLabel("");
+		GridBagConstraints gbc_lblWarningApellidos = new GridBagConstraints();
+		gbc_lblWarningApellidos.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningApellidos.gridx = 8;
+		gbc_lblWarningApellidos.gridy = 5;
+		panel.add(lblWarningApellidos, gbc_lblWarningApellidos);
 		
 		separator_2 = new JSeparator();
 		GridBagConstraints gbc_separator_2 = new GridBagConstraints();
@@ -232,22 +275,29 @@ public class Registro extends JFrame {
 		
 		MaskFormatter formatoTlfno;
 		try {
-		formatoTlfno = new MaskFormatter("'(###')' ###' ###' ###");
+		formatoTlfno = new MaskFormatter("' #########");
 		formatoTlfno.setPlaceholderCharacter('*');
 		txtTelefono = new JFormattedTextField(formatoTlfno);
+		txtTelefono.addFocusListener(new TxtTelefonoFocusListener());
 		} catch (ParseException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-		txtTelefono.addFocusListener(new FocusListener());
 		GridBagConstraints gbc_txtTelefono = new GridBagConstraints();
 		gbc_txtTelefono.gridwidth = 2;
-		gbc_txtTelefono.insets = new Insets(0, 0, 5, 0);
+		gbc_txtTelefono.insets = new Insets(0, 0, 5, 5);
 		gbc_txtTelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtTelefono.gridx = 6;
 		gbc_txtTelefono.gridy = 7;
 		panel.add(txtTelefono, gbc_txtTelefono);
 		txtTelefono.setColumns(10);
+		
+		lblWarningTelefono = new JLabel("");
+		GridBagConstraints gbc_lblWarningTelefono = new GridBagConstraints();
+		gbc_lblWarningTelefono.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningTelefono.gridx = 8;
+		gbc_lblWarningTelefono.gridy = 7;
+		panel.add(lblWarningTelefono, gbc_lblWarningTelefono);
 		
 		separator_3 = new JSeparator();
 		GridBagConstraints gbc_separator_3 = new GridBagConstraints();
@@ -265,15 +315,22 @@ public class Registro extends JFrame {
 		panel.add(lblTelfono, gbc_lblTelfono);
 		
 		txtEmail = new JTextField();
-		txtEmail.addFocusListener(new FocusListener());
+		txtEmail.addFocusListener(new TxtEmailFocusListener());
 		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
 		gbc_txtEmail.gridwidth = 2;
-		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_txtEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtEmail.gridx = 6;
 		gbc_txtEmail.gridy = 9;
 		panel.add(txtEmail, gbc_txtEmail);
 		txtEmail.setColumns(10);
+		
+		lblWarningEmail = new JLabel("");
+		GridBagConstraints gbc_lblWarningEmail = new GridBagConstraints();
+		gbc_lblWarningEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningEmail.gridx = 8;
+		gbc_lblWarningEmail.gridy = 9;
+		panel.add(lblWarningEmail, gbc_lblWarningEmail);
 		
 		separator_11 = new JSeparator();
 		GridBagConstraints gbc_separator_11 = new GridBagConstraints();
@@ -298,15 +355,22 @@ public class Registro extends JFrame {
 		panel.add(lblConfirmarEmail, gbc_lblConfirmarEmail);
 		
 		txtConfirmarEmail = new JTextField();
-		txtConfirmarEmail.addFocusListener(new FocusListener());
+		txtConfirmarEmail.addFocusListener(new TxtConfirmarEmailFocusListener());
 		GridBagConstraints gbc_txtConfirmarEmail = new GridBagConstraints();
 		gbc_txtConfirmarEmail.gridwidth = 2;
-		gbc_txtConfirmarEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_txtConfirmarEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_txtConfirmarEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtConfirmarEmail.gridx = 6;
 		gbc_txtConfirmarEmail.gridy = 11;
 		panel.add(txtConfirmarEmail, gbc_txtConfirmarEmail);
 		txtConfirmarEmail.setColumns(10);
+		
+		lblWarningConfirmarEmail = new JLabel("");
+		GridBagConstraints gbc_lblWarningConfirmarEmail = new GridBagConstraints();
+		gbc_lblWarningConfirmarEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningConfirmarEmail.gridx = 8;
+		gbc_lblWarningConfirmarEmail.gridy = 11;
+		panel.add(lblWarningConfirmarEmail, gbc_lblWarningConfirmarEmail);
 		
 		separator_4 = new JSeparator();
 		GridBagConstraints gbc_separator_4 = new GridBagConstraints();
@@ -334,15 +398,22 @@ public class Registro extends JFrame {
 		panel.add(lblContrasea, gbc_lblContrasea);
 		
 		txtContrasena = new JTextField();
-		txtContrasena.addFocusListener(new FocusListener());
+		txtContrasena.addFocusListener(new TxtContrasenaFocusListener());
 		GridBagConstraints gbc_txtContrasena = new GridBagConstraints();
 		gbc_txtContrasena.gridwidth = 2;
-		gbc_txtContrasena.insets = new Insets(0, 0, 5, 0);
+		gbc_txtContrasena.insets = new Insets(0, 0, 5, 5);
 		gbc_txtContrasena.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtContrasena.gridx = 6;
 		gbc_txtContrasena.gridy = 13;
 		panel.add(txtContrasena, gbc_txtContrasena);
 		txtContrasena.setColumns(10);
+		
+		lblWarningContraseña = new JLabel("");
+		GridBagConstraints gbc_lblWarningContraseña = new GridBagConstraints();
+		gbc_lblWarningContraseña.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningContraseña.gridx = 8;
+		gbc_lblWarningContraseña.gridy = 13;
+		panel.add(lblWarningContraseña, gbc_lblWarningContraseña);
 		
 		separator_5 = new JSeparator();
 		GridBagConstraints gbc_separator_5 = new GridBagConstraints();
@@ -360,15 +431,22 @@ public class Registro extends JFrame {
 		panel.add(lblConfirmarContrasea, gbc_lblConfirmarContrasea);
 		
 		txtConfirmarContrasena = new JTextField();
-		txtConfirmarContrasena.addFocusListener(new FocusListener());
+		txtConfirmarContrasena.addFocusListener(new TxtConfirmarContrasenaFocusListener());
 		GridBagConstraints gbc_txtConfirmarContrasena = new GridBagConstraints();
 		gbc_txtConfirmarContrasena.gridwidth = 2;
-		gbc_txtConfirmarContrasena.insets = new Insets(0, 0, 5, 0);
+		gbc_txtConfirmarContrasena.insets = new Insets(0, 0, 5, 5);
 		gbc_txtConfirmarContrasena.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtConfirmarContrasena.gridx = 6;
 		gbc_txtConfirmarContrasena.gridy = 15;
 		panel.add(txtConfirmarContrasena, gbc_txtConfirmarContrasena);
 		txtConfirmarContrasena.setColumns(10);
+		
+		lblWarningConfirmarContraseña = new JLabel("");
+		GridBagConstraints gbc_lblWarningConfirmarContraseña = new GridBagConstraints();
+		gbc_lblWarningConfirmarContraseña.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningConfirmarContraseña.gridx = 8;
+		gbc_lblWarningConfirmarContraseña.gridy = 15;
+		panel.add(lblWarningConfirmarContraseña, gbc_lblWarningConfirmarContraseña);
 		
 		separator_6 = new JSeparator();
 		GridBagConstraints gbc_separator_6 = new GridBagConstraints();
@@ -394,19 +472,21 @@ public class Registro extends JFrame {
 		panel.add(btnCancelar, gbc_btnCancelar);
 		
 		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new BtnAceptarActionListener());
 		btnAceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAceptar.anchor = GridBagConstraints.EAST;
 		gbc_btnAceptar.gridx = 7;
 		gbc_btnAceptar.gridy = 18;
-		panel.add(btnAceptar, gbc_btnAceptar);
+		panel.add(btnAceptar, gbc_btnAceptar);		
 	}
 
 	private class BtnSeleccionarImagenActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fcAbrir = new JFileChooser();
 			fcAbrir.setFileFilter(new ImageFilter());
-			int valorDevuelto = fcAbrir.showOpenDialog(frame);
+			int valorDevuelto = fcAbrir.showOpenDialog(null);
 			// Recoger el nombre del fichero seleccionado por el usuario
 			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
 				File file = fcAbrir.getSelectedFile();
@@ -420,9 +500,14 @@ public class Registro extends JFrame {
 	}
 	private class BtnCancelarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Autentificacion login = new Autentificacion();
-			login.getFrmLogin().setVisible(true);
-			dispose();
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere cancelar el registro?", "Cancelar",
+					dialogButton);
+			if (dialogResult == 0) {
+				Autentificacion login = new Autentificacion();
+				login.getFrmLogin().setVisible(true);
+				dispose();
+			} 
 		}
 	}
 	private class ThisWindowListener extends WindowAdapter {
@@ -432,14 +517,177 @@ public class Registro extends JFrame {
 			login.getFrmLogin().setVisible(true);
 		}
 	}
-	private class FocusListener extends FocusAdapter {
+		
+	private class TxtIdentificacionFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			arg0.getComponent().setBackground(new Color(250,250,210));
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,250));
+			if(txtIdentificacion.getText().isEmpty()) {
+				lblWarningUsuario.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
+				usuarioV = false;
+			} else {
+				lblWarningUsuario.setIcon(new ImageIcon(Principal.class.getResource("checking.png")));
+				usuarioV = true;
+			}
+		}
+	}
+	
+	private class TxtNombreFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,210));
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,250));
+			if(txtNombre.getText().isEmpty()) {
+				lblWarningNombre.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
+				nombreV = false;
+			} else {
+				lblWarningNombre.setIcon(new ImageIcon(Principal.class.getResource("checking.png")));
+				nombreV = true;
+			}
+		}
+	}
+	
+	private class TxtApellidosFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,210));
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,250));
+			if(txtApellidos.getText().isEmpty()) {
+				lblWarningApellidos.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
+				apellidosV = false;
+			} else {
+				lblWarningApellidos.setIcon(new ImageIcon(Principal.class.getResource("checking.png")));
+				apellidosV = true;
+			}
+		}
+	}
+	
+	private class TxtTelefonoFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,210));
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,250));
+			if(txtTelefono.getText().equals(" *********")) {
+				lblWarningTelefono.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
+				telefonoV = false;
+			} else {
+				lblWarningTelefono.setIcon(new ImageIcon(Principal.class.getResource("checking.png")));
+				telefonoV = true;
+			}
+		}
+	}
+	
+	private class TxtEmailFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,210));
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,250));
+			if(txtEmail.getText().isEmpty()) {
+				lblWarningEmail.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
+				emailV = false;
+			} else {
+				lblWarningEmail.setIcon(new ImageIcon(Principal.class.getResource("checking.png")));
+				emailV = true;
+			}
+		}
+	}
+	
+	private class TxtConfirmarEmailFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			arg0.getComponent().setBackground(new Color(250, 250, 210));
+		}
+
+		@Override
+		public void focusLost(FocusEvent arg0) {
+			if (txtConfirmarEmail.getText().isEmpty()) {
+				arg0.getComponent().setBackground(Color.RED);
+				confEmailV = false;
+			} else {
+				if (txtConfirmarEmail.getText().equals(txtEmail.getText())) {
+					arg0.getComponent().setBackground(Color.GREEN);
+					confEmailV = true;
+				} else {
+					arg0.getComponent().setBackground(Color.RED);
+					confEmailV = false;
+				}
+			}
+		}
+	}
+	
+	private class TxtContrasenaFocusListener extends FocusAdapter {
+		@Override
+		public void focusGained(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,210));
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setBackground(new Color(250,250,250));
+			if(txtContrasena.getText().isEmpty()) {
+				lblWarningContraseña.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
+				contraseñaV = false;
+			} else {
+				lblWarningContraseña.setIcon(new ImageIcon(Principal.class.getResource("checking.png")));
+				contraseñaV = true;
+			}
+		}
+	}
+	
+	private class TxtConfirmarContrasenaFocusListener extends FocusAdapter {
 		@Override
 		public void focusGained(FocusEvent arg0) {
 			arg0.getComponent().setBackground(new Color(250,250,210));
 		}
 		@Override
 		public void focusLost(FocusEvent arg0) {
-			arg0.getComponent().setBackground(new Color(250,250,250));
+			if (txtConfirmarContrasena.getText().isEmpty()) {
+				arg0.getComponent().setBackground(Color.RED);
+				confContraseñaV = false;
+			} else {
+				if (txtConfirmarContrasena.getText().equals(txtContrasena.getText())) {
+					arg0.getComponent().setBackground(Color.GREEN);
+					confContraseñaV = true;
+				} else {
+					arg0.getComponent().setBackground(Color.RED);
+					confContraseñaV = false;
+				}
+			}
+		}
+	}
+	
+	private class BtnAceptarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(usuarioV && nombreV && apellidosV && telefonoV && emailV && confEmailV && contraseñaV && confContraseñaV) {
+				Principal inicio = new Principal();
+				inicio.setExtendedState(MAXIMIZED_BOTH);
+				inicio.setVisible(true);
+				dispose();
+				Usuario newUser = new Usuario(Integer.parseInt(txtIdentificacion.getText()),txtNombre.getText(),
+						txtApellidos.getText(),txtEmail.getText(),txtContrasena.getText(),
+						Integer.parseInt(txtTelefono.getText().substring(1, txtTelefono.getText().length())));
+				ControlUsuarios cu = new ControlUsuarios();
+				cu.añadirUsuario(newUser);
+				
+				JOptionPane.showMessageDialog(null, "Usuario añadido con éxito");		
+			} else {
+				JOptionPane.showMessageDialog(null, "Por favor introduzca todos los datos");
+			}
 		}
 	}
 }

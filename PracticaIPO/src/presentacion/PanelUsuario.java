@@ -46,11 +46,13 @@ public class PanelUsuario extends JPanel {
 	private JTextArea txaMensaje;
 	private JSeparator separator_12;
 	private JLabel lblNewLabel;
-
+	public JPanel panelCard;
 	/**
 	 * Create the panel.
 	 */
-	public PanelUsuario() {
+	public PanelUsuario(JPanel panelCard) {
+		this.panelCard = panelCard;
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{67, 125, -217, 45, 48, 61, 122, 0, 162, 167, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 30, 0, 0, 0, 0, 0};

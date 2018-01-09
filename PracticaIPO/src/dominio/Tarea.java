@@ -1,23 +1,39 @@
 package dominio;
 
+import java.util.Date;
+
 public class Tarea {
 
 	private int idTarea;
 	private String nombre;
-	private String fechaIni;
-	private String fechaFin;
+	private Date fechaIni;
+	private Date fechaFin;
 	private String estado;
 	private int prioridad;
 	private int encargado;
 	private String comentarios;
 	
-	public Tarea(int idTarea, String nombre, String fechaIni, String fechaFin, String estado, int encargado, int prioridad, String comentarios) {
+	public Tarea() {
+		//Constructor vacio
+	}
+	
+	public Tarea(int idTarea, String nombre, Date fechaIni, Date fechaFin, String estado, int prioridad, String comentarios) {
 		this.idTarea = idTarea;
 		this.nombre = nombre;
 		this.fechaIni = fechaIni;
 		this.fechaFin = fechaFin;
 		this.estado = estado;
-		this.encargado = encargado;
+		this.encargado = 1;
+		this.prioridad = prioridad;
+		this.comentarios = comentarios;
+	}
+	
+	public Tarea(String nombre, Date fechaIni, Date fechaFin, String estado, int prioridad, String comentarios) {
+		this.nombre = nombre;
+		this.fechaIni = fechaIni;
+		this.fechaFin = fechaFin;
+		this.estado = estado;
+		this.encargado = 1;
 		this.prioridad = prioridad;
 		this.comentarios = comentarios;
 	}
@@ -38,19 +54,19 @@ public class Tarea {
 		this.nombre = nombre;
 	}
 
-	public String getFechaIni() {
+	public Date getFechaIni() {
 		return fechaIni;
 	}
 
-	public void setFechaIni(String fechaIni) {
+	public void setFechaIni(Date fechaIni) {
 		this.fechaIni = fechaIni;
 	}
 
-	public String getFechaFin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(String fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -88,6 +104,6 @@ public class Tarea {
 	
 	@Override
 	public String toString() {
-		return "Tarea: "+nombre+", "+estado+". "+comentarios;
+		return nombre;
 	}
 }

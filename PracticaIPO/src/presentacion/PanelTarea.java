@@ -9,7 +9,11 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Insets;
@@ -18,11 +22,17 @@ import java.awt.Cursor;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import java.time.DayOfWeek;
 import com.toedter.calendar.JDateChooser;
+
+import dominio.ControlTareas;
+import dominio.Tarea;
+
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
@@ -40,6 +50,7 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 public class PanelTarea extends JPanel {
 	private JPanel pnlOpciones;
@@ -85,11 +96,14 @@ public class PanelTarea extends JPanel {
 	private JButton btnEliminarPopup;
 	private JButton btnAñadirPopup;
 	private JButton btnAadirImagen;
-
+	public static JPanel panelCard;
+	static PanelTarea frame = new PanelTarea(panelCard);
+	private JButton btnVerImagenes;
 	/**
 	 * Create the panel.
 	 */
-	public PanelTarea() {
+	public PanelTarea(JPanel panelCard) {
+		PanelTarea.panelCard = panelCard;
 		setLayout(new BorderLayout(0, 0));
 		
 		pnlOpciones = new JPanel();
@@ -363,15 +377,26 @@ public class PanelTarea extends JPanel {
 		pnlProyecto.add(separator_7, gbc_separator_7);
 		
 		btnAadirImagen = new JButton("Añadir Imagen");
+		btnAadirImagen.addActionListener(new BtnAadirImagenActionListener());
+		
+		btnVerImagenes = new JButton("Ver Imágenes");
+		btnVerImagenes.addActionListener(new BtnVerImagenesActionListener());
+		btnVerImagenes.setEnabled(false);
+		GridBagConstraints gbc_btnVerImagenes = new GridBagConstraints();
+		gbc_btnVerImagenes.insets = new Insets(0, 0, 5, 5);
+		gbc_btnVerImagenes.gridx = 2;
+		gbc_btnVerImagenes.gridy = 16;
+		pnlProyecto.add(btnVerImagenes, gbc_btnVerImagenes);
 		btnAadirImagen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAadirImagen.setEnabled(false);
 		GridBagConstraints gbc_btnAadirImagen = new GridBagConstraints();
 		gbc_btnAadirImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAadirImagen.gridx = 2;
+		gbc_btnAadirImagen.gridx = 3;
 		gbc_btnAadirImagen.gridy = 16;
 		pnlProyecto.add(btnAadirImagen, gbc_btnAadirImagen);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new BtnEliminarActionListener());
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setEnabled(false);
 		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
@@ -382,6 +407,7 @@ public class PanelTarea extends JPanel {
 		pnlProyecto.add(btnEliminar, gbc_btnEliminar);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new BtnEditarActionListener());
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setEnabled(false);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
@@ -392,6 +418,7 @@ public class PanelTarea extends JPanel {
 		pnlProyecto.add(btnEditar, gbc_btnEditar);
 		
 		btnAñadir = new JButton("Añadir");
+		btnAñadir.addActionListener(new BtnAñadirActionListener());
 		btnAñadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAñadir.setEnabled(false);
 		GridBagConstraints gbc_btnAñadir = new GridBagConstraints();
@@ -426,6 +453,7 @@ public class PanelTarea extends JPanel {
 			btnEliminarPopup.setEnabled(false);
 			btnAñadirPopup.setEnabled(false);
 			btnAadirImagen.setEnabled(false);
+			btnVerImagenes.setEnabled(false);
 			miTabla.setEnabled(false);
 		}
 	}
@@ -445,6 +473,7 @@ public class PanelTarea extends JPanel {
 			btnEliminarPopup.setEnabled(false);
 			btnAñadirPopup.setEnabled(false);
 			btnAadirImagen.setEnabled(false);
+			btnVerImagenes.setEnabled(false);
 			miTabla.setEnabled(true);
 		}
 	}
@@ -464,6 +493,7 @@ public class PanelTarea extends JPanel {
 			btnEliminarPopup.setEnabled(true);
 			btnAñadirPopup.setEnabled(true);
 			btnAadirImagen.setEnabled(true);
+			btnVerImagenes.setEnabled(true);
 			miTabla.setEnabled(true);
 		}
 	}
@@ -483,6 +513,7 @@ public class PanelTarea extends JPanel {
 			btnEliminarPopup.setEnabled(true);
 			btnAñadirPopup.setEnabled(true);
 			btnAadirImagen.setEnabled(true);
+			btnVerImagenes.setEnabled(true);
 			miTabla.setEnabled(true);
 		}
 	}
@@ -500,6 +531,77 @@ public class PanelTarea extends JPanel {
 			int n= miTabla.getSelectedRow();
 			if (n != -1) modeloTabla.eliminaFila(miTabla.getSelectedRow());
 			modeloTabla.fireTableDataChanged();
+		}
+	}
+	private class BtnAadirImagenActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			JFileChooser fcAbrir = new JFileChooser();
+			fcAbrir.setFileFilter(new ImageFilter());
+			int valorDevuelto = fcAbrir.showOpenDialog(frame);
+			// Recoger el nombre del fichero seleccionado por el usuario
+			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
+				File file = fcAbrir.getSelectedFile();
+				// En este punto la aplicación se debería encargar de realizar la operación
+				// sobre el fichero
+				ImageIcon fot = new ImageIcon(file.getAbsolutePath());
+				
+				/*
+				 * Guardar Imagen en la tarea asociada
+				 */
+			}
+		}
+	}
+	private class BtnVerImagenesActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			((CardLayout) panelCard.getLayout()).show(panelCard, "Imagen");
+		}
+	}
+	private class BtnEliminarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar el proyecto?", "Eliminar",
+					dialogButton);
+			if (dialogResult == 0) {
+				//COGER ID
+				ControlTareas ct = new ControlTareas();
+				ct.eliminarTarea(0001);
+				JOptionPane.showMessageDialog(null, "Tarea eliminada");
+			} else {
+				JOptionPane.showMessageDialog(null, "Eliminación cancelada");
+			}
+		}
+	}
+	private class BtnEditarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere editar la tarea?", "Editar",
+					dialogButton);
+			if (dialogResult == 0) {
+				//COGER ID
+				Tarea task = new Tarea(1,txtNombre.getText(), dchCreacion.getDate(), dchFin.getDate(), cbxEstado.getActionCommand(),
+						spPrioridad.getComponentCount(),  txaDescipcion.getText());
+				ControlTareas ct = new ControlTareas();
+				ct.actualizarTarea(task);
+				JOptionPane.showMessageDialog(null, "Tarea editada");
+			} else {
+				JOptionPane.showMessageDialog(null, "Edición cancelada");
+			}
+		}
+	}
+	private class BtnAñadirActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere guardar la nueva tarea?", "Añadir",
+					dialogButton);
+			if (dialogResult == 0) {
+				Tarea task = new Tarea(txtNombre.getText(), dchCreacion.getDate(), dchFin.getDate(), cbxEstado.getActionCommand(),
+						spPrioridad.getComponentCount(),  txaDescipcion.getText());
+				ControlTareas ct = new ControlTareas();
+				ct.añadirTarea(task);
+				JOptionPane.showMessageDialog(null, "Tarea guardada");
+			} else {
+				JOptionPane.showMessageDialog(null, "Guardado cancelado");
+			}
 		}
 	}
 	

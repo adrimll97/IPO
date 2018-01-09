@@ -6,18 +6,20 @@ import java.sql.SQLException;
 
 public class Agente {
 
-	public Agente() {
-
+	private Connection conn;
+	
+	public Agente () {
+		this.conn=this.getConexion();
 	}
 
 	public static Connection getConexion() {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/bbdd_iso?autoReconnect=true&useSSL=false";
+			
 			String user = "root";
 			String pass = "1234";
-			con = DriverManager.getConnection(url, user, pass);
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bbdd_ipo?user="+user+"&password="+pass+"&useSSL=false");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al cargar el driver.");
 			e.printStackTrace();
@@ -25,7 +27,7 @@ public class Agente {
 			System.out.println("Error al conectar con la base de datos.");
 			e.printStackTrace();
 		}
-
 		return con;
 	}
+
 }
