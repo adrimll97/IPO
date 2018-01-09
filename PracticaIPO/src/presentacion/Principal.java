@@ -208,13 +208,11 @@ public class Principal extends JFrame {
 				}	
 				/*node_2 = new DefaultMutableTreeNode("Proyecto 1");
 				node_3 = new DefaultMutableTreeNode("Tarea 1.1");
-				node_3.add(new DefaultMutableTreeNode("Imagen 1.1.1"));
 				node_2.add(node_3);
 				node_1.add(node_2);
 				node_2 = new DefaultMutableTreeNode("Proyecto 2");
 				node_2.add(new DefaultMutableTreeNode("Tarea 2.1"));
 				node_3 = new DefaultMutableTreeNode("Tarea 2.2");
-				node_3.add(new DefaultMutableTreeNode("Imagen 2.2.1"));
 				node_2.add(node_3);
 				node_1.add(node_2);*/
 				add(node_1);

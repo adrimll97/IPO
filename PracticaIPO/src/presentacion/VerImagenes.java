@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.AbstractListModel;
 import java.awt.GridBagLayout;
@@ -32,7 +33,6 @@ public class VerImagenes extends JPanel {
 	private JList list;
 	private JButton btnGuardar;
 	private JButton btnAadir;
-	static VerImagenes frame = new VerImagenes();
 	private ImageIcon imagen;
 	private JScrollPane scrollPane;
 	private MiAreaDibujo lblAreaDibujo;
@@ -81,6 +81,7 @@ public class VerImagenes extends JPanel {
 		add(btnAadir, gbc_btnAadir);
 		
 		btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new BtnGuardarActionListener());
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
 		gbc_btnGuardar.gridx = 3;
 		gbc_btnGuardar.gridy = 3;
@@ -91,11 +92,15 @@ public class VerImagenes extends JPanel {
 	private class BtnAadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fcAbrir = new JFileChooser();
-			int valorDevuelto = fcAbrir.showOpenDialog(frame);
+			fcAbrir.setFileFilter(new ImageFilter());
+			int valorDevuelto = fcAbrir.showOpenDialog(null);
+			// Recoger el nombre del fichero seleccionado por el usuario
 			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
 				File file = fcAbrir.getSelectedFile();
-				imagen = new ImageIcon(file.getAbsolutePath());
-				lblAreaDibujo.setIcon(imagen);
+				// En este punto la aplicación se debería encargar de realizar la operación
+				// sobre el fichero
+				ImageIcon fot = new ImageIcon(file.getAbsolutePath());
+				lblAreaDibujo.setIcon(fot);
 			}
 		}
 	}
@@ -118,6 +123,21 @@ public class VerImagenes extends JPanel {
 					}
 				});
 				lblAreaDibujo.add(txtTexto);
+			}
+		}
+	}
+	private class BtnGuardarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere guardar la imagen editada", "Guardar",
+					dialogButton);
+			if (dialogResult == 0) {
+				/*
+				 * Guardar imagen editada
+				 */
+				JOptionPane.showMessageDialog(null, "Imagen guardada");
+			} else {
+				JOptionPane.showMessageDialog(null, "Guardado cancelado");
 			}
 		}
 	}

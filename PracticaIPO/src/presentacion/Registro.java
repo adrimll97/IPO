@@ -580,6 +580,7 @@ public class Registro extends JFrame {
 		@Override
 		public void focusLost(FocusEvent e) {
 			e.getComponent().setBackground(new Color(250,250,250));
+
 			if(txtTelefono.getText().equals(" *********")) {
 				lblWarningTelefono.setIcon(new ImageIcon(Principal.class.getResource("warning-weather-interface-outlined-symbol.png")));
 				telefonoV = false;
@@ -674,6 +675,7 @@ public class Registro extends JFrame {
 	private class BtnAceptarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(usuarioV && nombreV && apellidosV && telefonoV && emailV && confEmailV && contraseñaV && confContraseñaV) {
+
 				Principal inicio = new Principal();
 				inicio.setExtendedState(MAXIMIZED_BOTH);
 				inicio.setVisible(true);
@@ -682,8 +684,7 @@ public class Registro extends JFrame {
 						txtApellidos.getText(),txtEmail.getText(),txtContrasena.getText(),
 						Integer.parseInt(txtTelefono.getText().substring(1, txtTelefono.getText().length())));
 				ControlUsuarios cu = new ControlUsuarios();
-				cu.añadirUsuario(newUser);
-				
+				cu.añadirUsuario(newUser);			
 				JOptionPane.showMessageDialog(null, "Usuario añadido con éxito");		
 			} else {
 				JOptionPane.showMessageDialog(null, "Por favor introduzca todos los datos");

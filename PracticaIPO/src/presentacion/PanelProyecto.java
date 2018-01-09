@@ -394,6 +394,7 @@ public class PanelProyecto extends JPanel {
 			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar el proyecto?", "Eliminar",
 					dialogButton);
 			if (dialogResult == 0) {
+
 				//COGER ID
 				ControlProyectos cp = new ControlProyectos();
 				cp.eliminarProyecto(0001);
@@ -430,12 +431,13 @@ public class PanelProyecto extends JPanel {
 						Integer.parseInt(txtResponsable.getText()), txaDescipcion.getText());
 				ControlProyectos cp = new ControlProyectos();
 				cp.añadirProyecto(project);
-				JOptionPane.showMessageDialog(null, "Proyecto guardado");
+				JOptionPane.showMessageDialog(null, "Proyecto eliminado");
 			} else {
-				JOptionPane.showMessageDialog(null, "Guardado cancelado");
+				JOptionPane.showMessageDialog(null, "Eliminación cancelada");
 			}
 		}
 	}
+
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

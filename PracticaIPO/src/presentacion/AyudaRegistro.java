@@ -25,5 +25,4 @@ public class AyudaRegistro extends JPanel {
 		scrollPane.setViewportView(txtrAyudaDeLa);
 
 	}
-
 }

@@ -598,12 +598,14 @@ public class PanelTarea extends JPanel {
 						spPrioridad.getComponentCount(),  txaDescipcion.getText());
 				ControlTareas ct = new ControlTareas();
 				ct.añadirTarea(task);
-				JOptionPane.showMessageDialog(null, "Tarea guardada");
+
+				JOptionPane.showMessageDialog(null, "Tarea eliminada");
 			} else {
-				JOptionPane.showMessageDialog(null, "Guardado cancelado");
+				JOptionPane.showMessageDialog(null, "Eliminación cancelada");
 			}
 		}
 	}
+	
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
