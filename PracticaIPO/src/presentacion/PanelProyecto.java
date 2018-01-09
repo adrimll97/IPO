@@ -77,14 +77,18 @@ public class PanelProyecto extends JPanel {
 	private JButton btnAadirTarea;
 	private JPopupMenu popupMenu;
 	private JButton btnAadirTarea_1;
-	public JPanel panelCard;
+	private JPanel panelCard;
+	
+	private int id;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelProyecto(JPanel panelCard) {
+	public PanelProyecto(JPanel panelCard, int id) {
 		this.panelCard = panelCard;
 		setLayout(new BorderLayout(0, 0));
+		
+		this.id = id;
 		
 		pnlOpciones = new JPanel();
 		add(pnlOpciones, BorderLayout.NORTH);
@@ -325,9 +329,19 @@ public class PanelProyecto extends JPanel {
 		gbc_separator_8.gridx = 1;
 		gbc_separator_8.gridy = 13;
 		pnlProyecto.add(separator_8, gbc_separator_8);
-
 	}
 
+	public void rellenar() {
+		panelCard.add(pnlProyecto, "Proyecto");
+		ControlProyectos cp = new ControlProyectos();
+		Proyecto project = cp.obtenerProyecto(id);
+		txtNombre.setText(project.getNombre());		
+		dateChooser.setDate(project.getFechaCreacion());
+		txtResponsable.setText(String.valueOf(project.getResponsable()));
+		txaDescipcion.setText(project.getDesripcion());
+		((CardLayout) panelCard.getLayout()).show(panelCard, "Proyecto");
+	}
+	
 	private class ModoVisualizarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			txtNombre.setEnabled(false);
@@ -394,10 +408,8 @@ public class PanelProyecto extends JPanel {
 			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar el proyecto?", "Eliminar",
 					dialogButton);
 			if (dialogResult == 0) {
-
-				//COGER ID
 				ControlProyectos cp = new ControlProyectos();
-				cp.eliminarProyecto(0001);
+				cp.eliminarProyecto(id);
 				JOptionPane.showMessageDialog(null, "Proyecto eliminado");
 			} else {
 				JOptionPane.showMessageDialog(null, "Eliminación cancelada");
@@ -410,8 +422,7 @@ public class PanelProyecto extends JPanel {
 			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere editar el proyecto?", "Editar",
 					dialogButton);
 			if (dialogResult == 0) {
-				//COGER ID
-				Proyecto project = new Proyecto(0001, txtNombre.getText(), dateChooser.getDate(),
+				Proyecto project = new Proyecto(id, txtNombre.getText(), dateChooser.getDate(),
 						Integer.parseInt(txtResponsable.getText()), txaDescipcion.getText());
 				ControlProyectos cp = new ControlProyectos();
 				cp.actualizarProyecto(project);

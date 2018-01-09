@@ -15,7 +15,7 @@ public class ControlTareas {
 		this.daoTarea = new DAOTarea();
 	}
 	
-	public ArrayList<Tarea> obtenerTodosProyectos() {
+	public ArrayList<Tarea> obtenerTodosTareas() {
 		listaTareas = new ArrayList<Tarea>();
 		Tarea task = new Tarea();
 		try {

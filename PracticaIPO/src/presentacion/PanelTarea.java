@@ -54,7 +54,7 @@ import java.io.File;
 
 public class PanelTarea extends JPanel {
 	private JPanel pnlOpciones;
-	private JPanel pnlProyecto;
+	private JPanel pnlTarea;
 	private JLabel lblNombre;
 	private JLabel lblFechaDeCreacin;
 	private JLabel lblDescripcin;
@@ -96,15 +96,18 @@ public class PanelTarea extends JPanel {
 	private JButton btnEliminarPopup;
 	private JButton btnAñadirPopup;
 	private JButton btnAadirImagen;
-	public static JPanel panelCard;
-	static PanelTarea frame = new PanelTarea(panelCard);
+	private JPanel panelCard;
 	private JButton btnVerImagenes;
+	
+	private int id;
 	/**
 	 * Create the panel.
 	 */
-	public PanelTarea(JPanel panelCard) {
-		PanelTarea.panelCard = panelCard;
+	public PanelTarea(JPanel panelCard, int id) {
+		this.panelCard = panelCard;
 		setLayout(new BorderLayout(0, 0));
+		
+		this.id = id;
 		
 		pnlOpciones = new JPanel();
 		add(pnlOpciones, BorderLayout.NORTH);
@@ -138,35 +141,35 @@ public class PanelTarea extends JPanel {
 		buttonGroup.add(modoAñadir);
 		pnlOpciones.add(modoAñadir);
 		
-		pnlProyecto = new JPanel();
-		add(pnlProyecto, BorderLayout.CENTER);
+		pnlTarea = new JPanel();
+		add(pnlTarea, BorderLayout.CENTER);
 		GridBagLayout gbl_pnlProyecto = new GridBagLayout();
 		gbl_pnlProyecto.columnWidths = new int[]{0, 0, 100, 100, -27, 101, 106, 0, 0, 0, 57, 0, 0, 0, 0};
 		gbl_pnlProyecto.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_pnlProyecto.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_pnlProyecto.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		pnlProyecto.setLayout(gbl_pnlProyecto);
+		pnlTarea.setLayout(gbl_pnlProyecto);
 		
 		separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.insets = new Insets(0, 0, 5, 5);
 		gbc_separator.gridx = 1;
 		gbc_separator.gridy = 0;
-		pnlProyecto.add(separator, gbc_separator);
+		pnlTarea.add(separator, gbc_separator);
 		
 		separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
 		gbc_separator_1.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_1.gridx = 1;
 		gbc_separator_1.gridy = 1;
-		pnlProyecto.add(separator_1, gbc_separator_1);
+		pnlTarea.add(separator_1, gbc_separator_1);
 		
 		separator_2 = new JSeparator();
 		GridBagConstraints gbc_separator_2 = new GridBagConstraints();
 		gbc_separator_2.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_2.gridx = 1;
 		gbc_separator_2.gridy = 2;
-		pnlProyecto.add(separator_2, gbc_separator_2);
+		pnlTarea.add(separator_2, gbc_separator_2);
 		
 		lblNombre = new JLabel("Nombre: ");
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
@@ -174,7 +177,7 @@ public class PanelTarea extends JPanel {
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNombre.gridx = 1;
 		gbc_lblNombre.gridy = 3;
-		pnlProyecto.add(lblNombre, gbc_lblNombre);
+		pnlTarea.add(lblNombre, gbc_lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setEnabled(false);
@@ -184,7 +187,7 @@ public class PanelTarea extends JPanel {
 		gbc_txtNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNombre.gridx = 2;
 		gbc_txtNombre.gridy = 3;
-		pnlProyecto.add(txtNombre, gbc_txtNombre);
+		pnlTarea.add(txtNombre, gbc_txtNombre);
 		txtNombre.setColumns(10);
 		
 		pnlUsuarios = new JPanel();
@@ -196,7 +199,7 @@ public class PanelTarea extends JPanel {
 		gbc_pnlUsuarios.fill = GridBagConstraints.BOTH;
 		gbc_pnlUsuarios.gridx = 5;
 		gbc_pnlUsuarios.gridy = 3;
-		pnlProyecto.add(pnlUsuarios, gbc_pnlUsuarios);
+		pnlTarea.add(pnlUsuarios, gbc_pnlUsuarios);
 		pnlUsuarios.setLayout(new BorderLayout(0, 0));
 		
 		toolBar = new JToolBar();
@@ -245,14 +248,14 @@ public class PanelTarea extends JPanel {
 		gbc_separator_9.insets = new Insets(0, 0, 5, 0);
 		gbc_separator_9.gridx = 13;
 		gbc_separator_9.gridy = 3;
-		pnlProyecto.add(separator_9, gbc_separator_9);
+		pnlTarea.add(separator_9, gbc_separator_9);
 		
 		separator_3 = new JSeparator();
 		GridBagConstraints gbc_separator_3 = new GridBagConstraints();
 		gbc_separator_3.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_3.gridx = 1;
 		gbc_separator_3.gridy = 4;
-		pnlProyecto.add(separator_3, gbc_separator_3);
+		pnlTarea.add(separator_3, gbc_separator_3);
 		
 		lblFechaDeCreacin = new JLabel("Fecha de creación: ");
 		GridBagConstraints gbc_lblFechaDeCreacin = new GridBagConstraints();
@@ -260,7 +263,7 @@ public class PanelTarea extends JPanel {
 		gbc_lblFechaDeCreacin.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFechaDeCreacin.gridx = 1;
 		gbc_lblFechaDeCreacin.gridy = 5;
-		pnlProyecto.add(lblFechaDeCreacin, gbc_lblFechaDeCreacin);
+		pnlTarea.add(lblFechaDeCreacin, gbc_lblFechaDeCreacin);
 		
 		dchCreacion = new JDateChooser();
 		dchCreacion.getCalendarButton().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -271,14 +274,14 @@ public class PanelTarea extends JPanel {
 		gbc_dchCreacion.fill = GridBagConstraints.BOTH;
 		gbc_dchCreacion.gridx = 2;
 		gbc_dchCreacion.gridy = 5;
-		pnlProyecto.add(dchCreacion, gbc_dchCreacion);
+		pnlTarea.add(dchCreacion, gbc_dchCreacion);
 		
 		separator_11 = new JSeparator();
 		GridBagConstraints gbc_separator_11 = new GridBagConstraints();
 		gbc_separator_11.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_11.gridx = 1;
 		gbc_separator_11.gridy = 6;
-		pnlProyecto.add(separator_11, gbc_separator_11);
+		pnlTarea.add(separator_11, gbc_separator_11);
 		
 		lblFechaDeFinalizacin = new JLabel("Fecha de finalización: ");
 		GridBagConstraints gbc_lblFechaDeFinalizacin = new GridBagConstraints();
@@ -286,7 +289,7 @@ public class PanelTarea extends JPanel {
 		gbc_lblFechaDeFinalizacin.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFechaDeFinalizacin.gridx = 1;
 		gbc_lblFechaDeFinalizacin.gridy = 7;
-		pnlProyecto.add(lblFechaDeFinalizacin, gbc_lblFechaDeFinalizacin);
+		pnlTarea.add(lblFechaDeFinalizacin, gbc_lblFechaDeFinalizacin);
 		
 		dchFin = new JDateChooser();
 		dchFin.getCalendarButton().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -297,14 +300,14 @@ public class PanelTarea extends JPanel {
 		gbc_dchFin.fill = GridBagConstraints.BOTH;
 		gbc_dchFin.gridx = 2;
 		gbc_dchFin.gridy = 7;
-		pnlProyecto.add(dchFin, gbc_dchFin);
+		pnlTarea.add(dchFin, gbc_dchFin);
 		
 		separator_12 = new JSeparator();
 		GridBagConstraints gbc_separator_12 = new GridBagConstraints();
 		gbc_separator_12.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_12.gridx = 1;
 		gbc_separator_12.gridy = 8;
-		pnlProyecto.add(separator_12, gbc_separator_12);
+		pnlTarea.add(separator_12, gbc_separator_12);
 		
 		lblEstado = new JLabel("Estado: ");
 		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
@@ -312,7 +315,7 @@ public class PanelTarea extends JPanel {
 		gbc_lblEstado.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEstado.gridx = 1;
 		gbc_lblEstado.gridy = 9;
-		pnlProyecto.add(lblEstado, gbc_lblEstado);
+		pnlTarea.add(lblEstado, gbc_lblEstado);
 		
 		cbxEstado = new JComboBox();
 		cbxEstado.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -323,7 +326,7 @@ public class PanelTarea extends JPanel {
 		gbc_cbxEstado.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbxEstado.gridx = 2;
 		gbc_cbxEstado.gridy = 9;
-		pnlProyecto.add(cbxEstado, gbc_cbxEstado);
+		pnlTarea.add(cbxEstado, gbc_cbxEstado);
 		
 		lblPrioridad = new JLabel("Prioridad: ");
 		GridBagConstraints gbc_lblPrioridad = new GridBagConstraints();
@@ -331,7 +334,7 @@ public class PanelTarea extends JPanel {
 		gbc_lblPrioridad.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrioridad.gridx = 1;
 		gbc_lblPrioridad.gridy = 10;
-		pnlProyecto.add(lblPrioridad, gbc_lblPrioridad);
+		pnlTarea.add(lblPrioridad, gbc_lblPrioridad);
 		
 		spPrioridad = new JSpinner();
 		spPrioridad.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
@@ -341,7 +344,7 @@ public class PanelTarea extends JPanel {
 		gbc_spPrioridad.insets = new Insets(0, 0, 5, 5);
 		gbc_spPrioridad.gridx = 2;
 		gbc_spPrioridad.gridy = 10;
-		pnlProyecto.add(spPrioridad, gbc_spPrioridad);
+		pnlTarea.add(spPrioridad, gbc_spPrioridad);
 		
 		lblDescripcin = new JLabel("Descripción: ");
 		GridBagConstraints gbc_lblDescripcin = new GridBagConstraints();
@@ -349,7 +352,7 @@ public class PanelTarea extends JPanel {
 		gbc_lblDescripcin.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDescripcin.gridx = 1;
 		gbc_lblDescripcin.gridy = 12;
-		pnlProyecto.add(lblDescripcin, gbc_lblDescripcin);
+		pnlTarea.add(lblDescripcin, gbc_lblDescripcin);
 		
 		txaDescipcion = new JTextArea();
 		txaDescipcion.setEnabled(false);
@@ -360,21 +363,21 @@ public class PanelTarea extends JPanel {
 		gbc_txaDescipcion.fill = GridBagConstraints.BOTH;
 		gbc_txaDescipcion.gridx = 2;
 		gbc_txaDescipcion.gridy = 12;
-		pnlProyecto.add(txaDescipcion, gbc_txaDescipcion);
+		pnlTarea.add(txaDescipcion, gbc_txaDescipcion);
 		
 		separator_10 = new JSeparator();
 		GridBagConstraints gbc_separator_10 = new GridBagConstraints();
 		gbc_separator_10.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_10.gridx = 0;
 		gbc_separator_10.gridy = 13;
-		pnlProyecto.add(separator_10, gbc_separator_10);
+		pnlTarea.add(separator_10, gbc_separator_10);
 		
 		separator_7 = new JSeparator();
 		GridBagConstraints gbc_separator_7 = new GridBagConstraints();
 		gbc_separator_7.insets = new Insets(0, 0, 5, 5);
 		gbc_separator_7.gridx = 3;
 		gbc_separator_7.gridy = 15;
-		pnlProyecto.add(separator_7, gbc_separator_7);
+		pnlTarea.add(separator_7, gbc_separator_7);
 		
 		btnAadirImagen = new JButton("Añadir Imagen");
 		btnAadirImagen.addActionListener(new BtnAadirImagenActionListener());
@@ -386,14 +389,14 @@ public class PanelTarea extends JPanel {
 		gbc_btnVerImagenes.insets = new Insets(0, 0, 5, 5);
 		gbc_btnVerImagenes.gridx = 2;
 		gbc_btnVerImagenes.gridy = 16;
-		pnlProyecto.add(btnVerImagenes, gbc_btnVerImagenes);
+		pnlTarea.add(btnVerImagenes, gbc_btnVerImagenes);
 		btnAadirImagen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAadirImagen.setEnabled(false);
 		GridBagConstraints gbc_btnAadirImagen = new GridBagConstraints();
 		gbc_btnAadirImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAadirImagen.gridx = 3;
 		gbc_btnAadirImagen.gridy = 16;
-		pnlProyecto.add(btnAadirImagen, gbc_btnAadirImagen);
+		pnlTarea.add(btnAadirImagen, gbc_btnAadirImagen);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new BtnEliminarActionListener());
@@ -404,7 +407,7 @@ public class PanelTarea extends JPanel {
 		gbc_btnEliminar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEliminar.gridx = 10;
 		gbc_btnEliminar.gridy = 16;
-		pnlProyecto.add(btnEliminar, gbc_btnEliminar);
+		pnlTarea.add(btnEliminar, gbc_btnEliminar);
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new BtnEditarActionListener());
@@ -415,7 +418,7 @@ public class PanelTarea extends JPanel {
 		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEditar.gridx = 11;
 		gbc_btnEditar.gridy = 16;
-		pnlProyecto.add(btnEditar, gbc_btnEditar);
+		pnlTarea.add(btnEditar, gbc_btnEditar);
 		
 		btnAñadir = new JButton("Añadir");
 		btnAñadir.addActionListener(new BtnAñadirActionListener());
@@ -426,17 +429,30 @@ public class PanelTarea extends JPanel {
 		gbc_btnAñadir.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAñadir.gridx = 12;
 		gbc_btnAñadir.gridy = 16;
-		pnlProyecto.add(btnAñadir, gbc_btnAñadir);
+		pnlTarea.add(btnAñadir, gbc_btnAñadir);
 		
 		separator_8 = new JSeparator();
 		GridBagConstraints gbc_separator_8 = new GridBagConstraints();
 		gbc_separator_8.insets = new Insets(0, 0, 0, 5);
 		gbc_separator_8.gridx = 1;
 		gbc_separator_8.gridy = 17;
-		pnlProyecto.add(separator_8, gbc_separator_8);
-
+		pnlTarea.add(separator_8, gbc_separator_8);
 	}
 
+	public void rellenarTarea() {
+		panelCard.add(pnlTarea, "Tarea");
+		ControlTareas ct = new ControlTareas();
+		Tarea task = ct.obtenerTarea(id);
+		
+		txtNombre.setText(task.getNombre());
+		dchCreacion.setDate(task.getFechaIni());
+		dchFin.setDate(task.getFechaFin());
+		cbxEstado.setSelectedItem(task.getEstado());
+		spPrioridad.setValue(task.getPrioridad());
+		txaDescipcion.setText(task.getComentarios());
+		((CardLayout) panelCard.getLayout()).show(panelCard, "Tarea");
+	}
+	
 	private class ModoVisualizarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			txtNombre.setEnabled(false);
@@ -537,7 +553,7 @@ public class PanelTarea extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			JFileChooser fcAbrir = new JFileChooser();
 			fcAbrir.setFileFilter(new ImageFilter());
-			int valorDevuelto = fcAbrir.showOpenDialog(frame);
+			int valorDevuelto = fcAbrir.showOpenDialog(null);
 			// Recoger el nombre del fichero seleccionado por el usuario
 			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
 				File file = fcAbrir.getSelectedFile();
@@ -561,10 +577,9 @@ public class PanelTarea extends JPanel {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
 			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar el proyecto?", "Eliminar",
 					dialogButton);
-			if (dialogResult == 0) {
-				//COGER ID
+			if (dialogResult == 0) {				
 				ControlTareas ct = new ControlTareas();
-				ct.eliminarTarea(0001);
+				ct.eliminarTarea(id);
 				JOptionPane.showMessageDialog(null, "Tarea eliminada");
 			} else {
 				JOptionPane.showMessageDialog(null, "Eliminación cancelada");
@@ -576,9 +591,8 @@ public class PanelTarea extends JPanel {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
 			int dialogResult = JOptionPane.showConfirmDialog(null, "¿Quiere editar la tarea?", "Editar",
 					dialogButton);
-			if (dialogResult == 0) {
-				//COGER ID
-				Tarea task = new Tarea(1,txtNombre.getText(), dchCreacion.getDate(), dchFin.getDate(), cbxEstado.getActionCommand(),
+			if (dialogResult == 0) {				
+				Tarea task = new Tarea(id,txtNombre.getText(), dchCreacion.getDate(), dchFin.getDate(), cbxEstado.getActionCommand(),
 						spPrioridad.getComponentCount(),  txaDescipcion.getText());
 				ControlTareas ct = new ControlTareas();
 				ct.actualizarTarea(task);

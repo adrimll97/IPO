@@ -59,8 +59,8 @@ public class Autentificacion {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JPasswordField pfContraseña;
 	private JRadioButton rbPass;
-	private String usuario = "alumno";
-	private String contraseña = "ipo1";
+	private static int usuario;
+	private String contraseña;
 
 	/**
 	 * Launch the application.
@@ -265,6 +265,7 @@ public class Autentificacion {
 	private class TextFieldActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (comprobarUsuarios()) {
+				usuario = Integer.parseInt(tfUsuario.getText());				
 				tfUsuario.setBackground(Color.GREEN);
 				lblContrasea.setEnabled(true);
 				pfContraseña.setEnabled(true);
@@ -291,6 +292,7 @@ public class Autentificacion {
 	private class TfUsuarioFocusListener extends FocusAdapter {
 		public void focusLost(FocusEvent arg0) {
 			if (comprobarUsuarios()) {
+				usuario = Integer.parseInt(tfUsuario.getText());				
 				tfUsuario.setBackground(Color.GREEN);
 				lblContrasea.setEnabled(true);
 				pfContraseña.setEnabled(true);
@@ -322,5 +324,9 @@ public class Autentificacion {
 	public boolean comprobarPass() {
 		ControlUsuarios cu = new ControlUsuarios();
 		return cu.comprobarPass(Integer.parseInt(tfUsuario.getText()), String.valueOf(pfContraseña.getPassword()));
+	}
+	
+	public int getUsuario() {
+		return this.usuario;
 	}
 }

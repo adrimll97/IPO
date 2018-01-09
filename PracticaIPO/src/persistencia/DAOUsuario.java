@@ -39,13 +39,13 @@ public class DAOUsuario {
 	}
 	
 	public boolean insertarUsuarioDAO(int idUser, String nombre, String apellidos, String email, String contraseña, 
-			int telf, String rolPrincipal, String conocimientos) {
+			int telf, String rolPrincipal, String conocimientos, String imagen) {
 		boolean realizado;
 		try {
 			realizado = true;
 			con = Agente.getConexion();
 			con.createStatement();
-			String sql = "insert into usuarios values(?,?,?,?,?,?,?,?)";
+			String sql = "insert into usuarios values(?,?,?,?,?,?,?,?,?)";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, idUser);
 			pst.setString(2, nombre);
@@ -55,6 +55,7 @@ public class DAOUsuario {
 			pst.setInt(6, telf);
 			pst.setString(7, rolPrincipal);
 			pst.setString(8, conocimientos);
+			pst.setString(9, imagen);
 			pst.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("Error al insertar usuario en la base de datos");
@@ -86,13 +87,12 @@ public class DAOUsuario {
 			realizado = true;
 			con = Agente.getConexion();
 			con.createStatement();
-			final String sql = "update usuarios where idUsuarios = " + idUser + " set nombre = " + nombre + ", apellidos = " + apellidos + ", email = " + email + 
-					", contraseña = " + contraseña + ", telefono = " + telf + ", rolPrincipal = " + rolPrincipal + 
-					", conocimientos = " + conocimientos;
+			final String sql = "update usuarios set nombre = '" + nombre + "', apellidos = '" + apellidos + "', email = '" + email + 
+					"', telefono = " + telf + ", rolPrincipal = '" + rolPrincipal + "', conocientos = '" + conocimientos + "' where idUsuarios = " + idUser;
 			pst = con.prepareStatement(sql);
 			pst.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("Error al actualizar usuario en la base de datos");
+			System.out.println("Error al actualizar usuario en la base de datos"+e.getMessage());
 			realizado = false;
 		}
 		return realizado;

@@ -22,7 +22,7 @@ public class DAOProyecto {
 			rs = pst.executeQuery();
 
 		} catch (Exception e) {
-			System.out.println("Error al obtener canciones");
+			System.out.println("Error al obtener proyectos");
 		}
 		return rs;
 	}
@@ -35,7 +35,7 @@ public class DAOProyecto {
 			pst.setInt(1, idProyecto);
 			rs = pst.executeQuery();
 		} catch (Exception e) {
-			System.out.println("Error al obtener álbum");
+			System.out.println("Error al obtener proyecto");
 		}
 		return rs;
 	}
@@ -66,7 +66,7 @@ public class DAOProyecto {
 		try {
 			realizado = true;			
 			con.createStatement();
-			String sql = "delete from proyectos where idProyectos = " + idProject;
+			String sql = "delete from proyectos where idProyecto = " + idProject;
 			pst = con.prepareStatement(sql);
 			pst.executeUpdate();
 		} catch (Exception e) {

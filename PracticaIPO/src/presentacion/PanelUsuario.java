@@ -2,18 +2,30 @@ package presentacion;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import dominio.ControlUsuarios;
+import dominio.Usuario;
+
 import javax.swing.JTable;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+
+import java.awt.CardLayout;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelUsuario extends JPanel {
 	private JLabel lblMensaje;
@@ -46,12 +58,18 @@ public class PanelUsuario extends JPanel {
 	private JTextArea txaMensaje;
 	private JSeparator separator_12;
 	private JLabel lblNewLabel;
-	public JPanel panelCard;
+	private JPanel panelCard;
+	
+	private int id;
+	private JButton btnEditar;
+	private JButton btnHabiitarEdicion;
 	/**
 	 * Create the panel.
 	 */
-	public PanelUsuario(JPanel panelCard) {
+	public PanelUsuario(JPanel panelCard, int id) {
 		this.panelCard = panelCard;
+		
+		this.id = id;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{67, 125, -217, 45, 48, 61, 122, 0, 162, 167, 0, 0};
@@ -68,6 +86,7 @@ public class PanelUsuario extends JPanel {
 		add(separator_7, gbc_separator_7);
 		
 		lblNewLabel = new JLabel("");
+		lblNewLabel.setSize(200, 200);
 		lblNewLabel.setEnabled(false);
 		lblNewLabel.setBorder(new TitledBorder(null, "Foto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -300,6 +319,23 @@ public class PanelUsuario extends JPanel {
 		gbc_separator_12.gridy = 17;
 		add(separator_12, gbc_separator_12);
 		
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new BtnEditarActionListener());
+		
+		btnHabiitarEdicion = new JButton("Habiitar Edicion");
+		btnHabiitarEdicion.addActionListener(new BtnHabiitarEdicionActionListener());
+		GridBagConstraints gbc_btnHabiitarEdicion = new GridBagConstraints();
+		gbc_btnHabiitarEdicion.insets = new Insets(0, 0, 5, 5);
+		gbc_btnHabiitarEdicion.gridx = 0;
+		gbc_btnHabiitarEdicion.gridy = 18;
+		add(btnHabiitarEdicion, gbc_btnHabiitarEdicion);
+		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
+		gbc_btnEditar.anchor = GridBagConstraints.EAST;
+		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEditar.gridx = 8;
+		gbc_btnEditar.gridy = 18;
+		add(btnEditar, gbc_btnEditar);
+		
 		btnEnviarMensaje = new JButton("Enviar mensaje");
 		btnEnviarMensaje.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		GridBagConstraints gbc_btnEnviarMensaje = new GridBagConstraints();
@@ -317,5 +353,43 @@ public class PanelUsuario extends JPanel {
 		add(separator_6, gbc_separator_6);
 
 	}
+	
+	public void rellenar() {
+		panelCard.add(this, "Usuario");
+		ControlUsuarios cu = new ControlUsuarios();
+		Usuario user = cu.obtenerUsuario(id);
+		txtNombre.setText(user.getNombre());	
+		txtApellidos.setText(user.getApellidos());
+		txtEmail.setText(user.getEmail());
+		txtTelefono.setText(String.valueOf(user.getTelf()));
+		txtRol.setText(user.getRolPrincipal());
+		txtConocimientos.setText(user.getConocimientos());
+		
+		ImageIcon fot = new ImageIcon(Principal.class.getResource(user.getImagen()));
+        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_DEFAULT));
+		lblNewLabel.setIcon(icono);
+		
+		((CardLayout) panelCard.getLayout()).show(panelCard, "Usuario");
+	}
 
+	private class BtnEditarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			ControlUsuarios cu = new ControlUsuarios();
+			Usuario user = new Usuario(id,txtNombre.getText(),
+					txtApellidos.getText(),txtEmail.getText(),"",
+					Integer.parseInt(txtTelefono.getText().substring(1, txtTelefono.getText().length())),
+					txtRol.getText(),txtConocimientos.getText(),"");
+			cu.actualizarUsuario(user);
+		}
+	}
+	private class BtnHabiitarEdicionActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			txtNombre.setEnabled(true);
+			txtApellidos.setEnabled(true);
+			txtEmail.setEnabled(true);
+			txtTelefono.setEnabled(true);
+			txtRol.setEnabled(true);
+			txtConocimientos.setEnabled(true);
+		}
+	}
 }

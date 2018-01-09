@@ -96,6 +96,8 @@ public class Registro extends JFrame {
 	private boolean confEmailV;
 	private boolean contraseñaV;
 	private boolean confContraseñaV;
+	
+	private static String imagen;
 	/**
 	 * Launch the application.
 	 */
@@ -483,21 +485,28 @@ public class Registro extends JFrame {
 	}
 
 	private class BtnSeleccionarImagenActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			JFileChooser fcAbrir = new JFileChooser();
-			fcAbrir.setFileFilter(new ImageFilter());
-			int valorDevuelto = fcAbrir.showOpenDialog(null);
-			// Recoger el nombre del fichero seleccionado por el usuario
-			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
-				File file = fcAbrir.getSelectedFile();
-				// En este punto la aplicación se debería encargar de realizar la operación
-				// sobre el fichero
-				ImageIcon fot = new ImageIcon(file.getAbsolutePath());
-				Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
-				lblFoto.setIcon(icono);
-			}
-		}
-	}
+        public void actionPerformed(ActionEvent e) {
+            File miDir = new File ("./src/presentacion/ImagenesPerfil");
+            JFileChooser fcAbrir = new JFileChooser();
+            try {                
+                fcAbrir.setCurrentDirectory(miDir.getCanonicalFile());
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            fcAbrir.setFileFilter(new ImageFilter());
+            int valorDevuelto = fcAbrir.showOpenDialog(null);
+            // Recoger el nombre del fichero seleccionado por el usuario
+            if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
+                File file = fcAbrir.getSelectedFile();
+                // En este punto la aplicación se debería encargar de realizar la operación
+                // sobre el fichero
+                ImageIcon fot = new ImageIcon(file.getAbsolutePath());
+                Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
+                lblFoto.setIcon(icono);
+                imagen = file.getName();
+            }
+        }
+    }
 	private class BtnCancelarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -680,9 +689,11 @@ public class Registro extends JFrame {
 				inicio.setExtendedState(MAXIMIZED_BOTH);
 				inicio.setVisible(true);
 				dispose();
+				String imagen2 = "ImagenesPerfil/"+ imagen;				
 				Usuario newUser = new Usuario(Integer.parseInt(txtIdentificacion.getText()),txtNombre.getText(),
 						txtApellidos.getText(),txtEmail.getText(),txtContrasena.getText(),
-						Integer.parseInt(txtTelefono.getText().substring(1, txtTelefono.getText().length())));
+						Integer.parseInt(txtTelefono.getText().substring(1, txtTelefono.getText().length())),
+						imagen2);
 				ControlUsuarios cu = new ControlUsuarios();
 				cu.añadirUsuario(newUser);			
 				JOptionPane.showMessageDialog(null, "Usuario añadido con éxito");		

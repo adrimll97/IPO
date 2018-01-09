@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -24,12 +25,16 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import dominio.ControlProyectos;
+import dominio.ControlTareas;
 import dominio.ControlUsuarios;
 import dominio.Proyecto;
+import dominio.Tarea;
 import dominio.Usuario;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import presentacion.RoundButton;
+
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
@@ -52,10 +57,8 @@ public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel pnlInfoUsuario;
-	private JLabel lblFotoInicio;
 	private JLabel lblNombre;
 	private JLabel lblApellidos;
-	private JLabel lblUltimoAcceso;
 	private JButton btnCerrarSesion;
 	private JSeparator separator;
 
@@ -70,6 +73,14 @@ public class Principal extends JFrame {
 	private JPanel pnlTarea;
 	private JPanel pnlVerImagenes;
 	private RoundButton btnAyuda;
+	
+	private int idU;
+	private int idP;
+	private int idT;
+	
+	private static int usuario;
+	private JScrollPane scrollPane;
+	private JLabel lblFotoInicio;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -89,6 +100,13 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		
+		Autentificacion a = new Autentificacion();		
+		ControlUsuarios cu = new ControlUsuarios();
+		Usuario user = cu.obtenerUsuario(a.getUsuario());
+
+
+
 		addWindowListener(new ThisWindowListener());
 		setTitle("Principal");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -111,30 +129,31 @@ public class Principal extends JFrame {
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_pnlInfoUsuario.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		pnlInfoUsuario.setLayout(gbl_pnlInfoUsuario);
-
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBorder(new TitledBorder(null, "Foto:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		pnlInfoUsuario.add(scrollPane, gbc_scrollPane);
+		
 		lblFotoInicio = new JLabel("");
-		lblFotoInicio.setBorder(new TitledBorder(null, "Foto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_lblFotoInicio = new GridBagConstraints();
-		gbc_lblFotoInicio.gridheight = 2;
-		gbc_lblFotoInicio.insets = new Insets(0, 0, 0, 5);
-		gbc_lblFotoInicio.fill = GridBagConstraints.BOTH;
-		gbc_lblFotoInicio.gridx = 0;
-		gbc_lblFotoInicio.gridy = 0;
-		pnlInfoUsuario.add(lblFotoInicio, gbc_lblFotoInicio);
+		lblFotoInicio.setSize(75, 75);
+		ImageIcon fot = new ImageIcon(Principal.class.getResource(user.getImagen()));
+        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblFotoInicio.getWidth(), lblFotoInicio.getHeight(), Image.SCALE_DEFAULT));
+		lblFotoInicio.setIcon(icono);
+		scrollPane.setViewportView(lblFotoInicio);		
 
 		lblNombre = new JLabel("Nombre");
+		lblNombre.setText(user.getNombre());
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNombre.gridx = 1;
 		gbc_lblNombre.gridy = 0;
 		pnlInfoUsuario.add(lblNombre, gbc_lblNombre);
-
-		lblApellidos = new JLabel("Apellidos");
-		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
-		gbc_lblApellidos.insets = new Insets(0, 0, 5, 5);
-		gbc_lblApellidos.gridx = 2;
-		gbc_lblApellidos.gridy = 0;
-		pnlInfoUsuario.add(lblApellidos, gbc_lblApellidos);
 
 		btnCerrarSesion = new RoundButton("close");
 		btnCerrarSesion.setPreferredSize(new Dimension(65, 65));
@@ -158,14 +177,6 @@ public class Principal extends JFrame {
 		gbc_separator.gridx = 26;
 		gbc_separator.gridy = 0;
 		pnlInfoUsuario.add(separator, gbc_separator);
-
-		lblUltimoAcceso = new JLabel("Fecha ultimo acceso");
-		GridBagConstraints gbc_lblUltimoAcceso = new GridBagConstraints();
-		gbc_lblUltimoAcceso.gridwidth = 2;
-		gbc_lblUltimoAcceso.insets = new Insets(0, 0, 0, 5);
-		gbc_lblUltimoAcceso.gridx = 1;
-		gbc_lblUltimoAcceso.gridy = 1;
-		pnlInfoUsuario.add(lblUltimoAcceso, gbc_lblUltimoAcceso);
 		
 		btnAyuda = new RoundButton("close");
 		btnAyuda.addActionListener(new BtnAyudaActionListener());
@@ -182,6 +193,14 @@ public class Principal extends JFrame {
 		gbc_btnAyuda.gridx = 20;
 		gbc_btnAyuda.gridy = 0;
 		pnlInfoUsuario.add(btnAyuda, gbc_btnAyuda);
+		
+				lblApellidos = new JLabel("Apellidos");
+				lblApellidos.setText(user.getApellidos());
+				GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
+				gbc_lblApellidos.insets = new Insets(0, 0, 0, 5);
+				gbc_lblApellidos.gridx = 1;
+				gbc_lblApellidos.gridy = 1;
+				pnlInfoUsuario.add(lblApellidos, gbc_lblApellidos);
 
 		scpArbol = new JScrollPane();
 		scpArbol.setPreferredSize(new Dimension(150, 2));
@@ -200,9 +219,11 @@ public class Principal extends JFrame {
 				node_1 = new DefaultMutableTreeNode("Proyectos");
 				ControlProyectos cp = new ControlProyectos();
 				ArrayList<Proyecto> listaProyectos = cp.obtenerTodosProyectos();
+				ControlTareas ct = new ControlTareas();
+				ArrayList<Tarea> listaTareas = ct.obtenerTodosTareas();
 				for(int i = 0 ; i<listaProyectos.size() ; i++) {
 					node_2 = new DefaultMutableTreeNode(String.valueOf(listaProyectos.get(i).getIdProyecto()));
-					node_3 = new DefaultMutableTreeNode("Tarea 1.1");
+					node_3 = new DefaultMutableTreeNode(String.valueOf(listaTareas.get(0).getIdTarea()));
 					node_2.add(node_3);
 					node_1.add(node_2);
 				}	
@@ -238,13 +259,14 @@ public class Principal extends JFrame {
 		contentPane.add(panelCard, BorderLayout.CENTER);
 		panelCard.setLayout(new CardLayout(0, 0));
 
-		pnlUsuario = new PanelUsuario(panelCard);
+		PanelUsuario pnlUsuario = new PanelUsuario(panelCard,a.getUsuario());
+		pnlUsuario.rellenar();
 		panelCard.add(pnlUsuario, "Usuario");
 
-		pnlProyecto = new PanelProyecto(panelCard);
+		pnlProyecto = new PanelProyecto(panelCard,idP);
 		panelCard.add(pnlProyecto, "Proyecto");
 
-		pnlTarea = new PanelTarea(panelCard);
+		pnlTarea = new PanelTarea(panelCard,idT);
 		panelCard.add(pnlTarea, "Tarea");
 
 		pnlVerImagenes = new VerImagenes();
@@ -281,24 +303,34 @@ public class Principal extends JFrame {
 
 	private class TreeTreeSelectionListener implements TreeSelectionListener {
 		public void valueChanged(TreeSelectionEvent arg0) {
-			// Para saber en que nodo del árbol estoy
+			// Para saber en que nodo del árbol estoy			
+			//System.out.println(id);
 			String nodo = arg0.getPath().getPathComponent(1).toString();
 			int n = arg0.getPath().getPathCount();
+			System.out.println(nodo + "  " + n);
 			if(n == 3 && nodo == "Proyectos") {
 				nodo = "Proyecto";
+				idP = Integer.parseInt(arg0.getPath().getLastPathComponent().toString());
 			} else if (n == 3 && nodo == "Usuarios") {
 				nodo = "Usuario";
+				idU = Integer.parseInt(arg0.getPath().getLastPathComponent().toString());
 			} else if (n == 4 && nodo == "Proyectos") {
 				nodo = "Tarea";
-			} else if (n == 5 && nodo == "Proyectos") {
-				nodo = "Imagen";
+				idT = Integer.parseInt(arg0.getPath().getLastPathComponent().toString());
 			}
 			switch (nodo) {
 			case "Usuario":
+				PanelUsuario u = new PanelUsuario(panelCard,idU);
+				u.rellenar();
+				break;
 			case "Proyecto":
+				PanelProyecto p = new PanelProyecto(panelCard,idP);
+				p.rellenar();
+				break;
 			case "Tarea":
-			case "Imagen":
-				((CardLayout) panelCard.getLayout()).show(panelCard, nodo);
+				PanelTarea t = new PanelTarea(panelCard,idT);
+				t.rellenarTarea();
+				break;
 			}
 		}
 	}

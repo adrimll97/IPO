@@ -10,12 +10,13 @@ public class Usuario {
 	private int telf;
 	private String rolPrincipal;
 	private String conocimientos;
+	private String imagen;
 	
 	public Usuario() {
 		
 	}
 	
-	public Usuario(int idUser, String nombre, String apellidos, String email, String contraseña, int telefono) {
+	public Usuario(int idUser, String nombre, String apellidos, String email, String contraseña, int telefono, String imagen) {
 		this.idUser = idUser;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -23,7 +24,21 @@ public class Usuario {
 		this.contraseña = contraseña;
 		this.telf = telefono;
 		this.rolPrincipal = "";
-		this.conocimientos = "";		
+		this.conocimientos = "";
+		this.imagen = imagen;
+	}
+	
+	public Usuario(int idUser, String nombre, String apellidos, String email, String contraseña, int telefono,
+			String rolPrincipal, String conocimientos, String imagen) {
+		this.idUser = idUser;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.contraseña = contraseña;
+		this.telf = telefono;
+		this.rolPrincipal = rolPrincipal;
+		this.conocimientos = conocimientos;
+		this.imagen = imagen;
 	}
 
 	public int getIdUser() {
@@ -88,6 +103,14 @@ public class Usuario {
 
 	public void setConocimientos(String conocimientos) {
 		this.conocimientos = conocimientos;
+	}
+	
+	public String getImagen() {
+		return this.imagen;
+	}
+	
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 	
 	@Override

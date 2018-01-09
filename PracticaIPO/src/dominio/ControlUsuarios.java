@@ -35,7 +35,8 @@ public class ControlUsuarios {
 			ResultSet resultSet = daoUsuario.obtenerUsuarioDAO(idUser);
 			while (resultSet.next()) {
 				user = new Usuario(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4),
-						resultSet.getString(5),resultSet.getInt(6));
+						resultSet.getString(5),resultSet.getInt(6),resultSet.getString(7), resultSet.getString(8),
+						resultSet.getString(9));
 			}			
 		}catch(Exception e) {
 			System.out.println(e);
@@ -45,7 +46,7 @@ public class ControlUsuarios {
 	
 	public boolean añadirUsuario(Usuario user) {		
 		return daoUsuario.insertarUsuarioDAO(user.getIdUser(), user.getNombre(), user.getApellidos(), user.getEmail(), 
-				user.getContraseña(), user.getTelf(), user.getRolPrincipal(), user.getConocimientos());
+				user.getContraseña(), user.getTelf(), user.getRolPrincipal(), user.getConocimientos(), user.getImagen());
 	}
 	
 	public boolean eliminnarUsuario(int idUser) {
